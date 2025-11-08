@@ -1,0 +1,8 @@
+package Game.Map.Factory;
+
+public class ObstacleTile implements Tile{
+    @Override
+    public Tile drawTile() {
+        return null;
+    }
+}
