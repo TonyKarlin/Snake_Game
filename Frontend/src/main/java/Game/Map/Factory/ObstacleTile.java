@@ -1,4 +1,4 @@
-package game.Map.Factory;
+package game.map.factory;
 
 public class ObstacleTile implements Tile{
     @Override

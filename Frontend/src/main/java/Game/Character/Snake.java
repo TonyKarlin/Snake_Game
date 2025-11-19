@@ -1,6 +1,6 @@
-package game.Character;
+package game.character;
 
-import game.Movement.Position;
+import game.movement.Position;
 
 public class Snake {
     private final Position position = new Position();

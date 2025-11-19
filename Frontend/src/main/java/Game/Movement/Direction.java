@@ -1,7 +1,7 @@
-package game.Movement;
+package game.movement;
 
-import game.Character.Snake;
 import game.Menu;
+import game.character.Snake;
 
 public class Direction {
     private final Position pos;
