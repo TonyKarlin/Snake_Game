@@ -1,4 +1,4 @@
-package Game.Map;
+package game.Map;
 
 public class Gui {
 }

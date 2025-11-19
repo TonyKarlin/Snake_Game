@@ -1,4 +1,4 @@
-package Game.Movement;
+package game.Movement;
 
 public class Position {
     protected int x;

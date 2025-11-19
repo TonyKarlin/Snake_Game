@@ -1,4 +1,5 @@
-package Game.Map.Factory;
+package game.Map.Factory;
+
 
 public class MovementTile implements Tile{
 

@@ -1,4 +1,5 @@
-package Game;
+package game;
+
 
 public class Clock {
     private static Clock instance;

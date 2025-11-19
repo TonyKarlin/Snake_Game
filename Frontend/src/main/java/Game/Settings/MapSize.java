@@ -1,4 +1,4 @@
-package Game.Settings;
+package game.Settings;
 
 public enum MapSize {
     SIXTEEN(16),

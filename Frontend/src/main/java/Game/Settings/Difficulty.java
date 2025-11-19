@@ -1,4 +1,6 @@
-package Game.Settings;
+package game.Settings;
+
+
 
 public enum Difficulty {
     NORMAL(333),

@@ -1,7 +1,7 @@
-package Game;
+package game;
 
-import Game.Settings.Difficulty;
-import Game.Settings.MapSize;
+import game.Settings.Difficulty;
+import game.Settings.MapSize;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

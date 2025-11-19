@@ -1,4 +1,4 @@
-package Game.Map.Factory;
+package game.Map.Factory;
 
 public interface Tile {
     public Tile drawTile();

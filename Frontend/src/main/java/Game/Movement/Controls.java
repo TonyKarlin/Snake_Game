@@ -1,4 +1,4 @@
-package Game.Movement;
+package game.Movement;
 
 
 public class Controls {
