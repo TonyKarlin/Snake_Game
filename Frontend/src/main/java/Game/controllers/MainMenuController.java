@@ -1,5 +1,9 @@
 package game.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import game.view.components.CustomButton;
 import game.view.components.ExitButton;
 import game.view.components.HiscoresButton;
 import game.view.components.StartGameButton;
@@ -10,14 +14,16 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.layout.VBox;
 
 public class MainMenuController {
-    private final StartGameButton start;
-    private final HiscoresButton hiscores;
-    private final ExitButton exit;
+    // private final StartGameButton start;
+    // private final HiscoresButton hiscores;
+    // private final ExitButton exit;
+    private final List<CustomButton> menuButtons;
 
     public MainMenuController() {
-        this.start = new StartGameButton();
-        this.hiscores = new HiscoresButton();
-        this.exit = new ExitButton();
+        this.menuButtons = new ArrayList<>();
+        menuButtons.add(new StartGameButton());
+        menuButtons.add(new HiscoresButton());
+        menuButtons.add(new ExitButton());
     }
 
     @FXML
@@ -39,8 +45,8 @@ public class MainMenuController {
     }
 
     public void addButtonsToLayout() {
-        mainMenuButtons.getChildren().add(start.getButtonComponent());
-        mainMenuButtons.getChildren().add(hiscores.getButtonComponent());
-        mainMenuButtons.getChildren().add(exit.getButtonComponent());
+        menuButtons.forEach(item -> {
+            mainMenuButtons.getChildren().add(item.getButtonComponent());
+        });
     }
 }
