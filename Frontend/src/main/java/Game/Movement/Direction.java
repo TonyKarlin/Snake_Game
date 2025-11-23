@@ -1,6 +1,6 @@
 package game.movement;
 
-import game.character.Snake;
+import game.models.character.Snake;
 import game.view.Menu;
 
 public class Direction {

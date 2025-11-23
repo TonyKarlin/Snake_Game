@@ -1,4 +1,4 @@
-package game.character;
+package game.models.character;
 
 import game.movement.Position;
 

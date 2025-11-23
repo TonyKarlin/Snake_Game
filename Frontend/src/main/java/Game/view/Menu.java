@@ -2,8 +2,9 @@ package game.view;
 
 import java.net.URL;
 
-import game.settings.Difficulty;
-import game.settings.MapSize;
+import game.controllers.MainMenuController;
+import game.models.settings.Difficulty;
+import game.models.settings.MapSize;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -29,8 +30,12 @@ public class Menu extends Application{
         }
 
         FXMLLoader loader = new FXMLLoader(menuViewUri);
+        MainMenuController controller = loader.getController();
+        System.out.println(controller);
 
         Scene scene = new Scene(loader.load(), 600, 600);
+        scene.getStylesheets().add("/css/menu_stylesheet.css");
+
 
         stage.setScene(scene);
         stage.setTitle("Snake");

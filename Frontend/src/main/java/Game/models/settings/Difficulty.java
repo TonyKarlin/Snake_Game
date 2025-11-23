@@ -1,4 +1,4 @@
-package game.settings;
+package game.models.settings;
 
 
 
