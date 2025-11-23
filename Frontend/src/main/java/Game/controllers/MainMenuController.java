@@ -14,9 +14,6 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.layout.VBox;
 
 public class MainMenuController {
-    // private final StartGameButton start;
-    // private final HiscoresButton hiscores;
-    // private final ExitButton exit;
     private final List<CustomButton> menuButtons;
 
     public MainMenuController() {
