@@ -5,7 +5,7 @@ import game.models.settings.MapSize;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import utils.fetchFxml;
+import utils.FetchFxml;
 
 public class MenuView extends Application{
     private static Difficulty difficulty;
@@ -20,12 +20,12 @@ public class MenuView extends Application{
 
     @Override
     public void start(Stage stage) throws Exception {
-        Scene scene = new Scene(fetchFxml.fetchAndLoadView(this, NAME), 600, 600);
+        Scene scene = new Scene(FetchFxml.fetchAndLoadView(this, NAME).load(), 600, 600);
         scene.getStylesheets().add("/css/menu_stylesheet.css");
 
 
         stage.setScene(scene);
-        stage.setTitle("Snake");
+        stage.setTitle("Snake - Main Menu");
         stage.show();
 
     }

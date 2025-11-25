@@ -4,14 +4,14 @@ import java.io.IOException;
 import java.net.URL;
 
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 
-public class fetchFxml {
-    public static Parent fetchAndLoadView(Object object, String fileName) throws IOException {
+
+public class FetchFxml {
+    public static  FXMLLoader fetchAndLoadView(Object object, String fileName) throws IOException {
         String path = validatePath(fileName);
         URL fxmlView = validateURL(path, object);
         
-        return FXMLLoader.load(fxmlView);
+        return new FXMLLoader(fxmlView);
     }
 
     private static String validatePath(String fileName) {

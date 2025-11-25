@@ -1,8 +1,12 @@
 package game.view.components;
 
-public class HiscoresButton extends CustomButton{
+import utils.ViewContext;
 
-    public HiscoresButton() {
+public class HiscoresButton extends CustomButton{
+    private final ViewContext context;
+
+    public HiscoresButton(ViewContext context) {
+        this.context = context;
         initializeButton("Hiscores");
     }
 

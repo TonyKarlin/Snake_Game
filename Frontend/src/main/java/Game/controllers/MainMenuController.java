@@ -3,6 +3,7 @@ package game.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import game.view.MenuView;
 import game.view.components.CustomButton;
 import game.view.components.ExitButton;
 import game.view.components.HiscoresButton;
@@ -12,14 +13,18 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.VBox;
+import utils.ViewContext;
 
 public class MainMenuController {
     private final List<CustomButton> menuButtons;
+    private final ViewContext context;
+    private MenuView view;
 
     public MainMenuController() {
+        this.context = new ViewContext();
         this.menuButtons = new ArrayList<>();
-        menuButtons.add(new StartGameButton());
-        menuButtons.add(new HiscoresButton());
+        menuButtons.add(new StartGameButton(this.context));
+        menuButtons.add(new HiscoresButton(this.context));
         menuButtons.add(new ExitButton());
     }
 
