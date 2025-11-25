@@ -1,0 +1,6 @@
+.tileContainer {
+    -fx-border-color: black;
+    border-color: black;
+    -fx-border-radius: 2px;
+    border-radius: 2px;
+}

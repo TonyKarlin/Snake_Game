@@ -1,39 +1,26 @@
 package game.view;
 
-import java.net.URL;
-
-import game.controllers.MainMenuController;
 import game.models.settings.Difficulty;
 import game.models.settings.MapSize;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import utils.fetchFxml;
 
-public class Menu extends Application{
+public class MenuView extends Application{
     private static Difficulty difficulty;
     private static int size;
+    private final String NAME = "menu";
 
 
-    public Menu() {
+    public MenuView() {
         difficulty = Difficulty.NORMAL;
         size = MapSize.TWENTY_FOUR.getValue();
     }
 
     @Override
     public void start(Stage stage) throws Exception {
-        String menuResourcePath = "/fxml/menu.fxml";
-        URL menuViewUri = getClass().getResource(menuResourcePath);
-
-        if (menuViewUri == null) {
-            throw new IllegalArgumentException("FXML file not found at: " + menuViewUri);
-        }
-
-        FXMLLoader loader = new FXMLLoader(menuViewUri);
-        MainMenuController controller = loader.getController();
-        System.out.println(controller);
-
-        Scene scene = new Scene(loader.load(), 600, 600);
+        Scene scene = new Scene(fetchFxml.fetchAndLoadView(this, NAME), 600, 600);
         scene.getStylesheets().add("/css/menu_stylesheet.css");
 
 

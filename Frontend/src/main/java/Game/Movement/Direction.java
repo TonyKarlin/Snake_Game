@@ -1,7 +1,7 @@
 package game.movement;
 
 import game.models.character.Snake;
-import game.view.Menu;
+import game.view.MenuView;
 
 public class Direction {
     private final Position pos;
@@ -11,7 +11,7 @@ public class Direction {
     }
 
     public void moveUp() throws InterruptedException {
-        Thread.sleep(Menu.getDifficulty().getValue());
+        Thread.sleep(MenuView.getDifficulty().getValue());
         pos.y++;
 
     }
