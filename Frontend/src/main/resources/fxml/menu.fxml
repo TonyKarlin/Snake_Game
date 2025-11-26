@@ -37,7 +37,7 @@
             </HBox>
             <VBox fx:id="labelContainer" alignment="CENTER" prefHeight="161.0" prefWidth="600.0">
                <children>
-                  <Label fx:id="gameLabel" text="Snake Game" textAlignment="CENTER" textFill="WHITE">
+                  <Label fx:id="gameLabel" text="Snake game" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font name="Leelawadee UI Bold" size="64.0" />
                      </font>
@@ -46,7 +46,7 @@
             </VBox>
             <VBox fx:id="mainMenuButtons" alignment="CENTER" prefHeight="137.0" prefWidth="600.0" spacing="20.0">
                <!-- <children>
-                  <Button fx:id="startGameButton" alignment="CENTER" mnemonicParsing="false" prefWidth="150.0" text="Start A Game" textAlignment="CENTER">
+                  <Button fx:id="startGameButton" alignment="CENTER" mnemonicParsing="false" prefWidth="150.0" text="Start A game" textAlignment="CENTER">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -56,7 +56,7 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="exitGameButton" alignment="CENTER" mnemonicParsing="false" prefWidth="150.0" text="Exit Game" textAlignment="CENTER">
+                  <Button fx:id="exitGameButton" alignment="CENTER" mnemonicParsing="false" prefWidth="150.0" text="Exit game" textAlignment="CENTER">
                      <font>
                         <Font size="18.0" />
                      </font>

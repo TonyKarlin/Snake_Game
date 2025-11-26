@@ -53,20 +53,10 @@ public class ConcreteViewMediator extends Application implements Mediator{
     @Override
     public void updateView(ViewTypes type) {
         switch(type) {
-            case ViewTypes.MENU -> {
-                    showMainMenu();
-            }
-            case ViewTypes.GAME -> {
-                    showGame();
-            }
-            // case ViewEnums.HISCORES -> {
-            //     try {
-            //         showHiscores();
-            //     } catch(Exception ex){}
-            // }
-            case ViewTypes.NONE -> {
-                Platform.exit();
-            }
+            case ViewTypes.MENU -> showMainMenu();
+            case ViewTypes.GAME -> showGame();
+            // case ViewEnums.HISCORES -> showHiscores();
+            case ViewTypes.NONE -> Platform.exit();
             default -> throw new IllegalArgumentException("Unexpected value: " + type);
         }
     }

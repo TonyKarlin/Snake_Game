@@ -6,7 +6,7 @@ public class ConcreteObstacleTile extends Grid{
 
     @Override
     public ITile createTile() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new ObstacleTile();
     }
     
 }
