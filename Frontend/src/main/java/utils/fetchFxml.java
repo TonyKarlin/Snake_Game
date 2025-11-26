@@ -7,7 +7,7 @@ import javafx.fxml.FXMLLoader;
 
 
 public class FetchFxml {
-    public static  FXMLLoader fetchAndLoadView(Object object, String fileName) throws IOException {
+    public static FXMLLoader fetchAndValidateLoader(Object object, String fileName) throws IOException {
         String path = validatePath(fileName);
         URL fxmlView = validateURL(path, object);
         

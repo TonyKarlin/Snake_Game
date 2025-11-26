@@ -1,26 +1,31 @@
 package game.view;
 
-import game.models.settings.Difficulty;
-import game.models.settings.MapSize;
+import game.controllers.MainMenuController;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import utils.FetchFxml;
+import utils.ViewMediator.Mediator;
 
 public class MenuView extends Application{
-    private static Difficulty difficulty;
-    private static int size;
-    private final String NAME = "menu";
+    private final String MENU_VIEW_NAME = "menu";
+    private final Mediator mediator;
 
 
-    public MenuView() {
-        difficulty = Difficulty.NORMAL;
-        size = MapSize.TWENTY_FOUR.getValue();
+    public MenuView(Mediator mediator) {
+        this.mediator = mediator;
     }
 
     @Override
     public void start(Stage stage) throws Exception {
-        Scene scene = new Scene(FetchFxml.fetchAndLoadView(this, NAME).load(), 600, 600);
+        FXMLLoader loader = FetchFxml.fetchAndValidateLoader(this, MENU_VIEW_NAME);
+        Parent root = loader.load();
+        MainMenuController controller = loader.getController();
+        controller.setMediator(mediator);
+
+        Scene scene = new Scene(root, 600, 600);
         scene.getStylesheets().add("/css/menu_stylesheet.css");
 
 
@@ -30,11 +35,7 @@ public class MenuView extends Application{
 
     }
 
-    public static int getSize() {
-        return size;
-    }
-
-    public static Difficulty getDifficulty() {
-        return difficulty;
+    public String getViewName() {
+        return MENU_VIEW_NAME;
     }
 }

@@ -3,7 +3,6 @@ package game.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
-import game.view.MenuView;
 import game.view.components.CustomButton;
 import game.view.components.ExitButton;
 import game.view.components.HiscoresButton;
@@ -13,20 +12,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.VBox;
-import utils.ViewContext;
+import utils.ViewMediator.Mediator;
 
 public class MainMenuController {
     private final List<CustomButton> menuButtons;
-    private final ViewContext context;
-    private MenuView view;
+    private Mediator mediator;
 
     public MainMenuController() {
-        this.context = new ViewContext();
         this.menuButtons = new ArrayList<>();
-        menuButtons.add(new StartGameButton(this.context));
-        menuButtons.add(new HiscoresButton(this.context));
-        menuButtons.add(new ExitButton());
     }
+
 
     @FXML
     private Button settingsButton;
@@ -39,11 +34,17 @@ public class MainMenuController {
 
     @FXML
     private void initialize() {
-        addButtonsToLayout();
         Tooltip settingsHoverTooltip = new Tooltip("Settings");
         Tooltip languageTooltip = new Tooltip("Language");
         settingsButton.setTooltip(settingsHoverTooltip);
         langSelector.setTooltip(languageTooltip);
+    }
+
+    public void initButtons() {
+        menuButtons.add(new StartGameButton(mediator));
+        menuButtons.add(new HiscoresButton(mediator));
+        menuButtons.add(new ExitButton(mediator));
+        addButtonsToLayout();
     }
 
     public void addButtonsToLayout() {
@@ -51,4 +52,10 @@ public class MainMenuController {
             mainMenuButtons.getChildren().add(item.getButtonComponent());
         });
     }
+
+    public void setMediator(Mediator mediator) {
+        this.mediator = mediator;
+        initButtons();
+    }
+
 }
