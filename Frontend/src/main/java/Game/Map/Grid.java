@@ -1,5 +1,14 @@
 package game.map;
 
-public class Grid {
-    private boolean[][] tiles;
+import game.map.factory.ITile;
+
+public abstract class Grid {
+
+
+    public void renderGrid() {
+        
+    }
+
+
+    public abstract ITile createTile();
 }
