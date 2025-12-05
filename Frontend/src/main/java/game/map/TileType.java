@@ -1,6 +1,6 @@
 package game.map;
 
-public enum MapType {
+public enum TileType {
     MOVEMENT,
     OBSTACLE
 }

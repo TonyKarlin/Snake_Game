@@ -1,14 +1,13 @@
 package game.models.settings;
 
-public enum MapSize {
-    TEN(10),
-    FOURTEEN(14),
-    SIXTEEN(18),
-    TWENTY(22);
+public enum TileSize {
+    TWENTY(20),
+    FOURTY(40),
+    FIFTY(50);
 
     private final int value;
 
-    MapSize(int value) {
+    TileSize(int value) {
         this.value = value;
     }
 

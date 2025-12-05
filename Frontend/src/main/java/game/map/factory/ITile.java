@@ -1,10 +1,10 @@
 package game.map.factory;
 
-import game.map.MapType;
+import game.map.TileType;
 import javafx.scene.layout.VBox;
 
 
 public interface ITile {
-    MapType getTileType();
+    TileType getTileType();
     VBox getTile();
 }
