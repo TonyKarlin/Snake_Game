@@ -10,3 +10,7 @@
     -fx-border-color: black;
     -fx-border-width: 1px;
 }
+
+.Snake {
+    -fx-background-color: #026802;
+}

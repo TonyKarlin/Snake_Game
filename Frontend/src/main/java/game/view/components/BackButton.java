@@ -1,23 +1,22 @@
 package game.view.components;
 
+import javafx.scene.layout.HBox;
 import utils.ViewMediator.Mediator;
 import utils.ViewTypes;
 
-public class StartGameButton extends CustomButton{
+public class BackButton extends CustomButton{
     private final Mediator mediator;
-
-    public StartGameButton(Mediator mediator) {
+    
+    public BackButton(Mediator mediator) {
         this.mediator = mediator;
-        initializeButton("Start Game");
+        initializeButton("Back");
         this.setButtonPadding(10);
-        this.setButtonLabelColour("GREEN");
+        this.setButtonLabelColour("RED");
     }
-
+    
     @Override
     public void onClick() {
         System.out.println(getClass().getSimpleName() + " clicked!");
-        System.out.println("Mediator state: " + mediator);
-        mediator.updateView(ViewTypes.GAME);
+        mediator.updateView(ViewTypes.MENU);
     }
-    
 }

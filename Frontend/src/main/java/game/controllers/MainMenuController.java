@@ -3,10 +3,7 @@ package game.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
-import game.view.components.CustomButton;
-import game.view.components.ExitButton;
-import game.view.components.HiscoresButton;
-import game.view.components.StartGameButton;
+import game.view.components.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -41,7 +38,7 @@ public class MainMenuController {
     }
 
     public void initButtons() {
-        menuButtons.add(new StartGameButton(mediator));
+        menuButtons.add(new CreateGameButton(mediator));
         menuButtons.add(new HiscoresButton(mediator));
         menuButtons.add(new ExitButton(mediator));
         addButtonsToLayout();

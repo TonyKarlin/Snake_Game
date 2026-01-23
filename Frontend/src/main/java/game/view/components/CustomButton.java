@@ -13,14 +13,13 @@ public abstract class CustomButton {
     private final Pos labelPosition = Pos.CENTER;
     private String name;
 
-    public HBox initializeButton(String name) {
+    public void initializeButton(String name) {
         this.name = name;
         initContainer();
         buttonStyling();
         this.buttonComponent.setOnMouseClicked(e -> {
             this.onClick();
         });
-        return this.buttonComponent;
     }
 
     private void initContainer() {
@@ -55,6 +54,12 @@ public abstract class CustomButton {
     public void setButtonPadding(int newPadding) {
         this.buttonComponent.setPadding(new Insets(newPadding));
 
+    }
+    
+    public void setButtonLabelColour(String color) {
+        this.buttonComponent.getChildren().filtered(node -> node instanceof Label).forEach(node -> {
+            node.setStyle("-fx-text-fill: " + color + ";");
+        });
     }
     
     public abstract void onClick();

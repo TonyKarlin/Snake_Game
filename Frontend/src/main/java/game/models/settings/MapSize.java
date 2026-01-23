@@ -1,10 +1,9 @@
 package game.models.settings;
 
 public enum MapSize {
-    TEN(10),
-    FOURTEEN(14),
-    SIXTEEN(18),
-    TWENTY(22);
+    SMALL(11),
+    MEDIUM(15),
+    LARGE(21);
 
     private final int value;
 

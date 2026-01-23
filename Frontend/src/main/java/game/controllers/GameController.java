@@ -1,6 +1,6 @@
 package game.controllers;
 
-import game.map.factory.ConcreteMovementTile;
+import game.models.map.factory.ConcreteMovementTile;
 import game.models.settings.MapSize;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -9,7 +9,7 @@ import javafx.scene.layout.GridPane;
 import utils.ViewMediator.Mediator;
 
 public class GameController {
-    private Mediator mediator; // TODO: on "Game Over" set view to some endscreen, and from there back to Main Menu
+    private Mediator mediator; // TODO: on "Game Over" set view to some EndScreenView, and from there back to Main Menu
     
     @FXML
     private GridPane tileContainer;
@@ -23,7 +23,7 @@ public class GameController {
         Platform.runLater(() -> {
             validateGameContainerPosition();
             try {
-                defaultTiles.populateGrid(MapSize.TEN.getValue(), tileContainer);
+                defaultTiles.populateGrid(MapSize.SMALL.getValue(), tileContainer);
             } catch (Exception e) {
                 System.out.println("Grid Error: " + e.getMessage());
             }

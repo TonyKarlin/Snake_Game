@@ -1,0 +1,41 @@
+.gameOptions {
+    -fx-background-color: rgb(90, 160, 20);
+}
+
+.MenuButtons {
+    -fx-background-color: #e0ffff;
+    background-color: #e0ffff;
+    -fx-background-radius: 6px;
+    -fx-border-radius: 6px;
+    border-radius: 6px;
+    -fx-border-color: black;
+    border-color: black;
+    -fx-border-width: 1px;
+    border-width: 1px;
+    -fx-opacity: 1;
+    opacity: 1;
+}
+
+.MenuButtons:hover {
+    -fx-opacity: 0.7;
+    opacity: 0.7;
+}
+
+.OptionButtonActive {
+    -fx-background-color: #90ee90;
+    background-color: #90ee90;
+    -fx-background-radius: 6px;
+    -fx-border-radius: 6px;
+    border-radius: 6px;
+    -fx-border-color: black;
+    border-color: black;
+    -fx-border-width: 1px;
+    border-width: 1px;
+    -fx-opacity: 1;
+    opacity: 1;
+}
+
+.OptionButtonActive:hover {
+    -fx-opacity: 0.7;
+    opacity: 0.7;
+}

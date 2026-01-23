@@ -16,9 +16,9 @@ public class FetchFxml {
 
     private static String validatePath(String fileName) {
         if(fileName == null) {
-            throw new NullPointerException("Parameter: {fileName} is null");
-        } else if (fileName.length() < 1) {
-            throw new NullPointerException("Parameter: {fileName} is empty");
+            throw new NullPointerException("Parameter fileName is null");
+        } else if (fileName.isEmpty()) {
+            throw new NullPointerException("Parameter: " + fileName + " is empty");
         }
 
         return "/fxml/" + fileName + ".fxml";
