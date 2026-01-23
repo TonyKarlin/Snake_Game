@@ -7,14 +7,14 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import utils.FetchFxml;
-import utils.ViewMediator.Mediator;
+import utils.context.AppContext;
 
 public class GameView extends Application{
     private final String GAME_VIEW_NAME = "game";
-    private final Mediator mediator;
+    private final AppContext context;
 
-    public GameView(Mediator mediator) {
-        this.mediator = mediator;
+    public GameView(AppContext context) {
+        this.context = context;
     }
 
     @Override
@@ -23,8 +23,7 @@ public class GameView extends Application{
         Scene scene = new Scene(loader.load(), Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
         scene.getStylesheets().add("/css/game_window_stylesheet.css");
         GameController controller = loader.getController();
-        controller.setMediator(mediator);
-
+        controller.setMediator(context);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Snake - Game");
         primaryStage.show();

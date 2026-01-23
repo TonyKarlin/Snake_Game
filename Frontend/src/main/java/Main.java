@@ -1,9 +1,9 @@
 import utils.Log;
-import utils.ViewMediator.ConcreteViewMediator;
+import utils.context.ConcreteContextMediator;
 
 public class Main {
     public static void main(String[] args) {
         Log.log("\nApplication launched!\n");
-        ConcreteViewMediator.launch(ConcreteViewMediator.class, args);
+        ConcreteContextMediator.launch(ConcreteContextMediator.class, args);
     }
 }

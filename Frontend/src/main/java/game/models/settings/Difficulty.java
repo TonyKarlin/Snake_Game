@@ -3,17 +3,17 @@ package game.models.settings;
 
 
 public enum Difficulty {
-    NORMAL(333),
-    HARD(250),
-    EXTREME(200);
+    EASY(300),
+    MEDIUM(200),
+    HARD(100);
 
-    private final int value;
+    private final int tickSpeed;
 
     Difficulty(int value) {
-        this.value = value;
+        this.tickSpeed = value;
     }
 
     public int getValue() {
-        return value;
+        return tickSpeed;
     }
 }

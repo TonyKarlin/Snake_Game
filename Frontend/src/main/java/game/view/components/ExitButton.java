@@ -1,19 +1,19 @@
 package game.view.components;
 
-import utils.ViewMediator.Mediator;
+import utils.context.ViewMediator;
 import utils.ViewTypes;
 
 public class ExitButton extends CustomButton {
-    private final Mediator mediator;
+    private final ViewMediator viewMediator;
 
-    public ExitButton(Mediator mediator) {
-        this.mediator = mediator;
+    public ExitButton(ViewMediator viewMediator) {
+        this.viewMediator = viewMediator;
         initializeButton("Exit");
     }
 
     @Override
     public void onClick() {
         System.out.println(getClass().getSimpleName() + " clicked!");
-        mediator.updateView(ViewTypes.NONE);
+        viewMediator.updateView(ViewTypes.NONE);
     }
 }

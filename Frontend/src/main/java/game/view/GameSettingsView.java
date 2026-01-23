@@ -6,16 +6,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import utils.FetchFxml;
-import utils.ViewMediator.Mediator;
+import utils.context.AppContext;
 
 import java.io.IOException;
 
 public class GameSettingsView extends Application {
-    private final Mediator mediator;
+//    private final ViewMediator viewMediator;
+    private final AppContext context;
     private final String GAME_SETTINGS_VIEW_NAME = "game_settings";
 
-    public GameSettingsView(Mediator mediator) {
-        this.mediator = mediator;
+    public GameSettingsView(AppContext context) {
+        this.context = context;
     }
     
     public void start(Stage primaryStage) throws IOException {
@@ -23,8 +24,8 @@ public class GameSettingsView extends Application {
         Scene scene = new Scene(loader.load(), 600, 500);
         scene.getStylesheets().add("/css/game_settings_stylesheet.css");
         GameSettingsController controller = loader.getController();
-        controller.setMediator(mediator);
-
+        controller.setMediator(context);
+        controller.setContext(context);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Snake - GameOptions");
         primaryStage.show();

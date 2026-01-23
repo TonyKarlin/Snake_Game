@@ -1,14 +1,14 @@
 package game.view.components;
 
-import utils.ViewMediator.Mediator;
+import utils.context.ViewMediator;
 import utils.ViewTypes;
 
 public class CreateGameButton extends CustomButton{
-    private final Mediator mediator;
+    private final ViewMediator viewMediator;
 
-    public CreateGameButton(Mediator mediator) {
-        System.out.println("Button mediator state: " + mediator);
-        this.mediator = mediator;
+    public CreateGameButton(ViewMediator viewMediator) {
+        System.out.println("Button mediator state: " + viewMediator);
+        this.viewMediator = viewMediator;
         initializeButton("Create a Game");
     }
 
@@ -16,6 +16,6 @@ public class CreateGameButton extends CustomButton{
     @Override
     public void onClick() {
         System.out.println(getClass().getSimpleName() + " clicked!");
-        mediator.updateView(ViewTypes.OPTIONS);
+        viewMediator.updateView(ViewTypes.OPTIONS);
     }
 }

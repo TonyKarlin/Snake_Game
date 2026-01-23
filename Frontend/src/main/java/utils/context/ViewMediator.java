@@ -1,8 +1,8 @@
-package utils.ViewMediator;
+package utils.context;
 
 import utils.ViewTypes;
 
 
-public interface Mediator {
+public interface ViewMediator {
     void updateView(ViewTypes type);
 }

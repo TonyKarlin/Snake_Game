@@ -1,5 +1,7 @@
 package game.controllers;
 
+import game.models.GameEngine;
+import game.models.map.Map;
 import game.models.settings.Difficulty;
 import game.models.settings.MapSize;
 import game.view.components.BackButton;
@@ -8,19 +10,21 @@ import game.view.components.CustomOptionButton;
 import game.view.components.StartGameButton;
 import javafx.fxml.FXML;
 import javafx.scene.layout.HBox;
-import utils.ViewMediator.Mediator;
+import utils.context.AppContext;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GameSettingsController {
-    private final List<CustomButton> optionsButtons;
+    private final List<CustomButton> navigationButtons;
     private final List<CustomOptionButton> difficultyButtons;
     private final List<CustomOptionButton> sizeButtons;
-    private Mediator mediator;
+    private AppContext context;
+    private Map mapModel;
+    private GameEngine engine;
     
     public GameSettingsController() {
-        this.optionsButtons = new ArrayList<>();
+        this.navigationButtons = new ArrayList<>();
         this.difficultyButtons = new ArrayList<>();
         this.sizeButtons = new ArrayList<>();
     }
@@ -41,13 +45,13 @@ public class GameSettingsController {
     }
     
     public void initButtons() {
-        optionsButtons.add(new BackButton(mediator));
-        optionsButtons.add(new StartGameButton(mediator));
+        navigationButtons.add(new BackButton(context));
+        navigationButtons.add(new StartGameButton(context));
         addButtonsToLayout();
     }
     
     public void addButtonsToLayout() {
-        optionsButtons.forEach(item -> {
+        navigationButtons.forEach(item -> {
             navigationContainer.getChildren().add(item.getButtonComponent());
         });
     }
@@ -57,7 +61,7 @@ public class GameSettingsController {
             CustomOptionButton button = new CustomOptionButton(diff.name(), difficultyButtons) {
                 @Override
                 public void onToggle() {
-                    
+                    setDifficulty(diff.getValue());
                 }
             };
             difficultyContainer.getChildren().add(button.getButtonComponent());
@@ -69,14 +73,29 @@ public class GameSettingsController {
             CustomOptionButton button = new CustomOptionButton(size.name(), sizeButtons) {
                 @Override
                 public void onToggle() {
+                    setSize(size.getValue());
                 }
             };
             sizeContainer.getChildren().add(button.getButtonComponent());
         }
     }
+    
+    public void setSize(int selectedSize) {
+        mapModel.setSize(selectedSize);
+    }
+    
+    public void setDifficulty(int tickSpeed) {
+        engine.setTick(tickSpeed);
+    }
 
-    public void setMediator(Mediator mediator) {
-        this.mediator = mediator;
+    public void setMediator(AppContext context) {
+        this.context = context;
         initButtons();
+    }
+    
+    public void setContext(AppContext context) {
+        this.context = context;
+        this.mapModel = context.getMapModel();
+        this.engine = context.getEngineModel();
     }
 }

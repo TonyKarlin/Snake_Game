@@ -1,14 +1,13 @@
 package game.view.components;
 
-import javafx.scene.layout.HBox;
-import utils.ViewMediator.Mediator;
+import utils.context.ViewMediator;
 import utils.ViewTypes;
 
 public class BackButton extends CustomButton{
-    private final Mediator mediator;
+    private final ViewMediator viewMediator;
     
-    public BackButton(Mediator mediator) {
-        this.mediator = mediator;
+    public BackButton(ViewMediator viewMediator) {
+        this.viewMediator = viewMediator;
         initializeButton("Back");
         this.setButtonPadding(10);
         this.setButtonLabelColour("RED");
@@ -17,6 +16,6 @@ public class BackButton extends CustomButton{
     @Override
     public void onClick() {
         System.out.println(getClass().getSimpleName() + " clicked!");
-        mediator.updateView(ViewTypes.MENU);
+        viewMediator.updateView(ViewTypes.MENU);
     }
 }

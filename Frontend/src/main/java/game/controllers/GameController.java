@@ -1,15 +1,22 @@
 package game.controllers;
 
+import game.models.map.Map;
 import game.models.map.factory.ConcreteMovementTile;
 import game.models.settings.MapSize;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
-import utils.ViewMediator.Mediator;
+import utils.context.ViewMediator;
 
 public class GameController {
-    private Mediator mediator; // TODO: on "Game Over" set view to some EndScreenView, and from there back to Main Menu
+    private ViewMediator viewMediator; // TODO: on "Game Over" set view to some EndScreenView, and from there back to Main Menu
+    private Map mapModel;
+    
+    public GameController() {
+        
+    }
+    
     
     @FXML
     private GridPane tileContainer;
@@ -58,8 +65,12 @@ public class GameController {
     }
 
 
-    public void setMediator(Mediator mediator) {
-        this.mediator = mediator;
+    public void setMediator(ViewMediator viewMediator) {
+        this.viewMediator = viewMediator;
+    }
+
+    public void setMapModel(Map mapModel) {
+        this.mapModel = mapModel;
     }
 }
 

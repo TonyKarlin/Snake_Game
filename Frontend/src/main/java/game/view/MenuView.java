@@ -7,15 +7,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import utils.FetchFxml;
-import utils.ViewMediator.Mediator;
+import utils.context.AppContext;
 
 public class MenuView extends Application{
     private final String MENU_VIEW_NAME = "menu";
-    private final Mediator mediator;
+    private final AppContext context;
 
 
-    public MenuView(Mediator mediator) {
-        this.mediator = mediator;
+    public MenuView(AppContext context) {
+        this.context = context;
     }
 
     @Override
@@ -23,7 +23,7 @@ public class MenuView extends Application{
         FXMLLoader loader = FetchFxml.fetchAndValidateLoader(this, MENU_VIEW_NAME);
         Parent root = loader.load();
         MainMenuController controller = loader.getController();
-        controller.setMediator(mediator);
+        controller.setMediator(context);
 
         Scene scene = new Scene(root, 600, 600);
         scene.getStylesheets().add("/css/menu_stylesheet.css");
