@@ -13,11 +13,14 @@ import javafx.scene.layout.VBox;
 public abstract class GameGrid {
     
     public void populateGrid(GridPane gridPane, TileType[][] logicalMap) {
-        VBox[][] tileSet = generateTileSet(logicalMap);
-        setGridSize(gridPane, logicalMap.length);
+        int size = logicalMap.length;
+        VBox[][] tileSet = new VBox[size][size];
+        setGridSize(gridPane, size);
         
-        for(int i = 0; i < logicalMap.length; i++) {
-            for (int j = 0; j < logicalMap.length; j++) {
+        for(int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                ITile tile = createTileForType(logicalMap[i][j]);
+                tileSet[i][j] = tile.getTile();
                 gridPane.add(tileSet[i][j], i, j);
             }
         }
@@ -31,18 +34,6 @@ public abstract class GameGrid {
             gridPane.getColumnConstraints().add(new ColumnConstraints(gridPane.getPrefWidth() / size));
             gridPane.getRowConstraints().add(new RowConstraints(gridPane.getPrefHeight() / size));
         }
-    }
-    
-    public VBox[][] generateTileSet(TileType[][] logicalMap) {
-        int size = logicalMap.length;
-        VBox[][] tileSet = new VBox[size][size];
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                ITile tile = createTileForType(logicalMap[i][j]);
-                tileSet[i][j] = tile.getTile();
-            }
-        }
-        return tileSet;
     }
 
     private ITile createTileForType(TileType type) {

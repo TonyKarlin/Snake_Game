@@ -1,6 +1,7 @@
 package game.models.map.factory;
 
 import game.models.map.TileType;
+import game.models.settings.TileSize;
 import javafx.scene.layout.VBox;
 
 public class ObstacleTile implements ITile{
@@ -13,6 +14,9 @@ public class ObstacleTile implements ITile{
 
     @Override
     public VBox getTile() {
-        return new VBox();
+        VBox tile = new VBox();
+        tile.getStyleClass().add("obstacle-tile");
+//        setTileSize(TileSize.FOURTY.getValue(), tile);
+        return tile;
     }
 }

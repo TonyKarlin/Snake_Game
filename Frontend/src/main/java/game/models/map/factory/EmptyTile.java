@@ -7,11 +7,6 @@ import javafx.scene.layout.VBox;
 
 public class EmptyTile implements ITile{
     private final TileType type = TileType.EMPTY;
-    
-    private void setTileSize(int size, VBox tile) {
-        tile.setPrefWidth(size);
-        tile.setPrefHeight(size);
-    }
 
     @Override
     public TileType getTileType() {
@@ -22,7 +17,7 @@ public class EmptyTile implements ITile{
     public VBox getTile() {
         VBox tile = new VBox();
         tile.getStyleClass().add("empty-tile");
-        setTileSize(TileSize.FOURTY.getValue(), tile);
+//        setTileSize(TileSize.TWENTY.getValue(), tile);
         return tile;
     }
 }
