@@ -5,7 +5,7 @@
     border-radius: 2px;
 }
 
-.movementTile {
+.empty-tile {
     -fx-background-color: #92fafa;
     -fx-border-color: black;
     -fx-border-width: 1px;

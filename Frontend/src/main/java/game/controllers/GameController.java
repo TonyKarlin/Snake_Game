@@ -1,20 +1,20 @@
 package game.controllers;
 
 import game.models.map.Map;
-import game.models.map.factory.ConcreteMovementTile;
-import game.models.settings.MapSize;
+import game.models.map.factory.ConcreteEmptyTile;
+import game.view.components.GameGrid;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
+import utils.context.AppContext;
 import utils.context.ViewMediator;
 
 public class GameController {
-    private ViewMediator viewMediator; // TODO: on "Game Over" set view to some EndScreenView, and from there back to Main Menu
+    private AppContext context; // TODO: on "Game Over" set view to some EndScreenView, and from there back to Main Menu
     private Map mapModel;
     
     public GameController() {
-        
     }
     
     
@@ -26,11 +26,12 @@ public class GameController {
 
     @FXML
     public void initialize() {
-        ConcreteMovementTile defaultTiles = new ConcreteMovementTile();
+        GameGrid grid = new ConcreteEmptyTile();
         Platform.runLater(() -> {
             validateGameContainerPosition();
             try {
-                defaultTiles.populateGrid(MapSize.SMALL.getValue(), tileContainer);
+                mapModel.initializeMap();
+                grid.populateGrid(tileContainer, mapModel.getLogicalMap());
             } catch (Exception e) {
                 System.out.println("Grid Error: " + e.getMessage());
             }
@@ -64,13 +65,9 @@ public class GameController {
         tileContainer.setPrefWidth(size);
     }
 
-
-    public void setMediator(ViewMediator viewMediator) {
-        this.viewMediator = viewMediator;
-    }
-
-    public void setMapModel(Map mapModel) {
-        this.mapModel = mapModel;
+    public void setContext(AppContext context) {
+        this.context = context;
+        this.mapModel = context.getMapModel();
     }
 }
 

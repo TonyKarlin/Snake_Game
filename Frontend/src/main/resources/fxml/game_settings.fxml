@@ -24,7 +24,7 @@
                <children>
                   <VBox alignment="TOP_CENTER" prefHeight="199.0" prefWidth="280.0">
                      <children>
-                        <Label alignment="CENTER" prefHeight="42.0" prefWidth="250.0" text="DIFFICULTY" textAlignment="CENTER" textFill="WHITE" underline="true">
+                        <Label alignment="CENTER" prefHeight="42.0" prefWidth="250.0" text="GRID SIZE" textAlignment="CENTER" textFill="WHITE" underline="true">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
@@ -34,7 +34,7 @@
                   </VBox>
                   <VBox alignment="TOP_CENTER" prefHeight="199.0" prefWidth="280.0">
                      <children>
-                        <Label alignment="CENTER" prefHeight="42.0" prefWidth="250.0" text="GRID SIZE" textAlignment="CENTER" textFill="WHITE" underline="true">
+                        <Label alignment="CENTER" prefHeight="42.0" prefWidth="250.0" text="DIFFICULTY" textAlignment="CENTER" textFill="WHITE" underline="true">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>

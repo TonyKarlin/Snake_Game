@@ -1,12 +1,12 @@
-package game.map.factory;
+package game.models.map.factory;
 
-import game.map.TileType;
+import game.models.map.TileType;
 import game.models.settings.TileSize;
 import javafx.scene.layout.VBox;
 
 
-public class MovementTile implements ITile{
-    private final TileType type = TileType.MOVEMENT;
+public class EmptyTile implements ITile{
+    private final TileType type = TileType.EMPTY;
     
     private void setTileSize(int size, VBox tile) {
         tile.setPrefWidth(size);
@@ -21,7 +21,7 @@ public class MovementTile implements ITile{
     @Override
     public VBox getTile() {
         VBox tile = new VBox();
-        tile.getStyleClass().add("movementTile");
+        tile.getStyleClass().add("empty-tile");
         setTileSize(TileSize.FOURTY.getValue(), tile);
         return tile;
     }

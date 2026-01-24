@@ -1,6 +1,6 @@
-package game.map.factory;
+package game.models.map.factory;
 
-import game.map.TileType;
+import game.models.map.TileType;
 import javafx.scene.layout.VBox;
 
 

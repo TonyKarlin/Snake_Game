@@ -1,11 +1,10 @@
-package game.map.factory;
+package game.models.map.factory;
 
-import game.map.TileType;
+import game.models.map.TileType;
 import javafx.scene.layout.VBox;
 
-public class ObstacleTile implements ITile{
-    private final TileType type = TileType.OBSTACLE;
-
+public class FoodTile implements ITile{
+    private final TileType type = TileType.FOOD;
     @Override
     public TileType getTileType() {
         return type;

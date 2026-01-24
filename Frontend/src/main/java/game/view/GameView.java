@@ -23,7 +23,7 @@ public class GameView extends Application{
         Scene scene = new Scene(loader.load(), Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
         scene.getStylesheets().add("/css/game_window_stylesheet.css");
         GameController controller = loader.getController();
-        controller.setMediator(context);
+        controller.setContext(context);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Snake - Game");
         primaryStage.show();

@@ -62,6 +62,7 @@ public class GameSettingsController {
                 @Override
                 public void onToggle() {
                     setDifficulty(diff.getValue());
+                    System.out.println("Difficulty set to: " + diff.name());
                 }
             };
             difficultyContainer.getChildren().add(button.getButtonComponent());
@@ -74,6 +75,7 @@ public class GameSettingsController {
                 @Override
                 public void onToggle() {
                     setSize(size.getValue());
+                    System.out.println("Map Size set to: " + size.name());
                 }
             };
             sizeContainer.getChildren().add(button.getButtonComponent());
