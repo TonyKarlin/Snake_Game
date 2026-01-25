@@ -1,4 +1,4 @@
-package utils;
+package game.view;
 
 public enum ViewTypes {
     MENU,

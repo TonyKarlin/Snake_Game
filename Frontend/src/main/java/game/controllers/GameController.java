@@ -1,5 +1,6 @@
 package game.controllers;
 
+import game.models.character.Snake;
 import game.models.map.Map;
 import game.models.map.factory.ConcreteEmptyTile;
 import game.view.components.GameGrid;
@@ -13,6 +14,7 @@ import utils.context.ViewMediator;
 public class GameController {
     private AppContext context; // TODO: on "Game Over" set view to some EndScreenView, and from there back to Main Menu
     private Map mapModel;
+    private Snake snake;
     
     public GameController() {
     }
@@ -32,6 +34,9 @@ public class GameController {
             try {
                 mapModel.initializeMap();
                 grid.populateGrid(tileContainer, mapModel.getLogicalMap());
+//                int centerX = mapModel.getCenterPosition()[0][0];
+//                int centerY = mapModel.getCenterPosition()[0][1];
+//                snake.initializeSnake();
             } catch (Exception e) {
                 System.out.println("Grid Error: " + e.getMessage());
             }
@@ -68,6 +73,7 @@ public class GameController {
     public void setContext(AppContext context) {
         this.context = context;
         this.mapModel = context.getMapModel();
+        this.snake = context.getSnakeModel();
     }
 }
 

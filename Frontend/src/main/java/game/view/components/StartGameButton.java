@@ -1,7 +1,7 @@
 package game.view.components;
 
 import utils.context.ViewMediator;
-import utils.ViewTypes;
+import game.view.ViewTypes;
 
 public class StartGameButton extends CustomButton{
     private final ViewMediator viewMediator;

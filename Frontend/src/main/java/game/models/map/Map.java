@@ -43,6 +43,11 @@ public class Map {
 
         logicalMap[x][y] = TileType.EMPTY;
     }
+    
+    public int[][] getCenterPosition() {
+        int center = size / 2;
+        return new int[][] { {center, center} };
+    }
 
     private boolean isEdge(int i, int j, int size) {
         // Determines weather a position within a nested loop is an edge of a matrix

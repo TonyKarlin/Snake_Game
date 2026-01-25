@@ -1,18 +1,20 @@
 package utils.context;
 
 import game.models.GameEngine;
+import game.models.character.Snake;
 import game.models.map.Map;
 import game.view.*;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 import utils.Log;
-import utils.ViewTypes;
+import game.view.ViewTypes;
 
 public class ConcreteContextMediator extends Application implements AppContext {
     // Models
     private final Map mapModel;
     private final GameEngine engine;
+    private final Snake snake;
 
     // Views
     private final MenuView menu;
@@ -26,6 +28,7 @@ public class ConcreteContextMediator extends Application implements AppContext {
     public ConcreteContextMediator() {
         this.mapModel = new Map();
         this.engine = new GameEngine();
+        this.snake = new Snake();
 
         this.hiscores = new HiscoresView(this);
         this.menu = new MenuView(this);
@@ -67,5 +70,9 @@ public class ConcreteContextMediator extends Application implements AppContext {
 
     public GameEngine getEngineModel() {
         return engine;
+    }
+    
+    public Snake getSnakeModel() {
+        return snake;
     }
 }

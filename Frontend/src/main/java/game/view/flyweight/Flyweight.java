@@ -1,4 +1,4 @@
-package utils.flyweight;
+package game.view.flyweight;
 
 import javafx.scene.layout.HBox;
 

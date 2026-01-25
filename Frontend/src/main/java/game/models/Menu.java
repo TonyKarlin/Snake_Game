@@ -1,5 +1,5 @@
 package game.models;
 
-public class menuModel {
+public class Menu {
     
 }

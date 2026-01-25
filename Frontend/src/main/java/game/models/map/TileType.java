@@ -4,4 +4,5 @@ public enum TileType {
     EMPTY,
     FOOD,
     OBSTACLE,
+    SNAKE,
 }

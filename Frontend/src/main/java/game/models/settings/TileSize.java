@@ -2,7 +2,7 @@ package game.models.settings;
 
 public enum TileSize {
     TWENTY(20),
-    FOURTY(40),
+    FORTY(40),
     FIFTY(50);
 
     private final int value;

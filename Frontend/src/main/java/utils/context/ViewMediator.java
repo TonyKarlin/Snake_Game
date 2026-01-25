@@ -1,6 +1,6 @@
 package utils.context;
 
-import utils.ViewTypes;
+import game.view.ViewTypes;
 
 
 public interface ViewMediator {

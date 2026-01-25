@@ -30,8 +30,8 @@ public class CustomButtonTest {
         String name = "Test";
         CustomButton instance = new CustomButtonImpl();
         HBox expResult = null;
-        HBox result = instance.initializeButton(name);
-        assertEquals(expResult, result);
+//        HBox result = instance.initializeButton(name);
+//        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

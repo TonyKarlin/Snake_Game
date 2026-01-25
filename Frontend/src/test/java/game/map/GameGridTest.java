@@ -8,19 +8,22 @@ package game.map;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+
+import game.view.components.GameGrid;
+import game.models.map.TileType;
 import org.junit.Test;
 
-import game.map.factory.ITile;
-import game.map.factory.MovementTile;
+import game.models.map.factory.ITile;
+import game.models.map.factory.EmptyTile;
 import javafx.scene.layout.VBox;
 
 /**
  *
  * @author tontt
  */
-public class GridTest {
+public class GameGridTest {
 
-    public GridTest() {
+    public GameGridTest() {
     }
 
     /**
@@ -41,17 +44,17 @@ public class GridTest {
     @Test
     public void testCreateTile() {
         System.out.println("createTile");
-        Grid instance = new GridImpl();
+        GameGrid instance = new GameGridImpl();
         ITile result = instance.createTile();
 
         assertNotNull(result);
-        assertTrue(result instanceof MovementTile);
+        assertTrue(result instanceof EmptyTile);
     }
 
     @Test
     public void testGetTile() {
         System.out.println("getTile");
-        Grid instance = new GridImpl();
+        GameGrid instance = new GameGridImpl();
         ITile tile = instance.createTile();
 
         assertNotNull(tile.getTile());
@@ -61,19 +64,19 @@ public class GridTest {
     @Test
     public void testGetTileType() {
         System.out.println("getTileType");
-        Grid instance = new GridImpl();
+        GameGrid instance = new GameGridImpl();
         ITile tile = instance.createTile();
 
-        MapType type = tile.getTileType();
+        TileType type = tile.getTileType();
         assertNotNull(type);
-        assertEquals(type, MapType.MOVEMENT);
+        assertEquals(type, TileType.EMPTY);
     }
 
-    public class GridImpl extends Grid {
+    public class GameGridImpl extends GameGrid {
 
         @Override
         public ITile createTile() {
-            return new MovementTile();
+            return new EmptyTile();
         }
     }
 
