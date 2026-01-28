@@ -10,29 +10,24 @@ import utils.context.AppContext;
 
 import java.io.IOException;
 
-public class GameSettingsView extends Application {
-//    private final ViewMediator viewMediator;
+public class GameSettingsView {
     private final AppContext context;
-    private final String GAME_SETTINGS_VIEW_NAME = "game_settings";
 
     public GameSettingsView(AppContext context) {
         this.context = context;
     }
     
-    public void start(Stage primaryStage) throws IOException {
+    public void show(Stage stage) throws IOException {
+        String GAME_SETTINGS_VIEW_NAME = "game_settings";
         FXMLLoader loader = FetchFxml.fetchAndValidateLoader(this, GAME_SETTINGS_VIEW_NAME);
-        Scene scene = new Scene(loader.load(), 600, 500);
+        Scene scene = new Scene(loader.load(), 600, 600);
         scene.getStylesheets().add("/css/game_settings_stylesheet.css");
         GameSettingsController controller = loader.getController();
         controller.setMediator(context);
         controller.setContext(context);
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("Snake - GameOptions");
-        primaryStage.show();
+        stage.setScene(scene);
+        stage.setTitle("Snake - GameOptions");
+        stage.show();
         
-    }
-
-    public String getGAME_VIEW_NAME() {
-        return GAME_SETTINGS_VIEW_NAME;
     }
 }

@@ -1,12 +1,14 @@
 package game.models.map;
 
-import game.controllers.GameSettingsController;
+import game.models.Position;
+import game.models.settings.TileSize;
 
 import java.util.Random;
 
 public class Map {
     private TileType[][] logicalMap; // A map that indicates each Tiles purpose on the Grid
     private int size;
+    private TileSize tileSize;
 
     public void initializeMap() {
         System.out.println("Initializing map of size: " + size);
@@ -24,6 +26,7 @@ public class Map {
         }
         logicalMap = newMap;
     }
+    
 
     private void spawnFood(int size) {
         Random rand = new Random();
@@ -44,9 +47,9 @@ public class Map {
         logicalMap[x][y] = TileType.EMPTY;
     }
     
-    public int[][] getCenterPosition() {
+    public Position getCenterPosition() {
         int center = size / 2;
-        return new int[][] { {center, center} };
+        return new Position(center, center);
     }
 
     private boolean isEdge(int i, int j, int size) {
@@ -65,6 +68,14 @@ public class Map {
     
     public void setSize(int size) {
         this.size = size;
+    }
+
+    public TileSize getTileSize() {
+        return tileSize;
+    }
+
+    public void setTileSize(TileSize tileSize) {
+        this.tileSize = tileSize;
     }
 
     public TileType[][] getLogicalMap() {

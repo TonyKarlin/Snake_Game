@@ -1,48 +1,32 @@
 package game.view.components;
 
 import game.models.map.TileType;
-import game.models.map.factory.FoodTile;
-import game.models.map.factory.ITile;
-import game.models.map.factory.EmptyTile;
-import game.models.map.factory.ObstacleTile;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.RowConstraints;
-import javafx.scene.layout.VBox;
+import game.models.settings.TileSize;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
 public abstract class GameGrid {
-    
-    public void populateGrid(GridPane gridPane, TileType[][] logicalMap) {
+
+    protected final TileSize cellSize;
+
+    protected GameGrid(TileSize cellSize) {
+        this.cellSize = cellSize;
+    }
+
+    public void render(GraphicsContext gc, TileType[][] logicalMap) {
         int size = logicalMap.length;
-        VBox[][] tileSet = new VBox[size][size];
-        setGridSize(gridPane, size);
-        
-        for(int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                ITile tile = createTileForType(logicalMap[i][j]);
-                tileSet[i][j] = tile.getTile();
-                gridPane.add(tileSet[i][j], i, j);
+
+        for (int x = 0; x < size; x++) {
+            for (int y = 0; y < size; y++) {
+                drawTile(gc, logicalMap[x][y], x, y);
             }
         }
     }
-    
-    private void setGridSize(GridPane gridPane, int size) {
-        gridPane.getColumnConstraints().clear();
-        gridPane.getRowConstraints().clear();
-        
-        for (int i = 0; i < size; i++) {
-            gridPane.getColumnConstraints().add(new ColumnConstraints(gridPane.getPrefWidth() / size));
-            gridPane.getRowConstraints().add(new RowConstraints(gridPane.getPrefHeight() / size));
-        }
-    }
 
-    private ITile createTileForType(TileType type) {
-        return switch (type) {
-            case OBSTACLE -> new ObstacleTile();
-            case FOOD -> new FoodTile();
-            default -> new EmptyTile();
-        };
-    }
-
-    public abstract ITile createTile();
+    protected abstract void drawTile(
+        GraphicsContext gc,
+        TileType type,
+        int x,
+        int y
+    );
 }

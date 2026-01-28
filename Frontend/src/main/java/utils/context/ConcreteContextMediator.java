@@ -1,6 +1,7 @@
 package utils.context;
 
 import game.models.GameEngine;
+import game.models.GameState;
 import game.models.character.Snake;
 import game.models.map.Map;
 import game.view.*;
@@ -13,7 +14,7 @@ import game.view.ViewTypes;
 public class ConcreteContextMediator extends Application implements AppContext {
     // Models
     private final Map mapModel;
-    private final GameEngine engine;
+    //    private final GameEngine engine;
     private final Snake snake;
 
     // Views
@@ -27,7 +28,7 @@ public class ConcreteContextMediator extends Application implements AppContext {
 
     public ConcreteContextMediator() {
         this.mapModel = new Map();
-        this.engine = new GameEngine();
+//        this.engine = new GameEngine();
         this.snake = new Snake();
 
         this.hiscores = new HiscoresView(this);
@@ -40,7 +41,7 @@ public class ConcreteContextMediator extends Application implements AppContext {
     @Override
     public void start(Stage stage) throws Exception {
         this.primaryStage = stage;
-        menu.start(primaryStage);
+        menu.show(primaryStage);
     }
 
     public Stage getPrimaryStage() {
@@ -51,16 +52,17 @@ public class ConcreteContextMediator extends Application implements AppContext {
     public void updateView(ViewTypes type) {
         try {
             switch (type) {
-                case ViewTypes.MENU -> this.menu.start(primaryStage);
-                case ViewTypes.GAME -> this.game.start(primaryStage);
-                case ViewTypes.OPTIONS -> this.options.start(primaryStage);
-                case ViewTypes.HISCORES -> this.hiscores.start(primaryStage);
-                case ViewTypes.END -> this.end.start(primaryStage);
+                case ViewTypes.MENU -> this.menu.show(primaryStage);
+                case ViewTypes.GAME -> this.game.show(primaryStage);
+                case ViewTypes.OPTIONS -> this.options.show(primaryStage);
+                case ViewTypes.HISCORES -> this.hiscores.show(primaryStage);
+                case ViewTypes.END -> this.end.show(primaryStage);
                 case ViewTypes.NONE -> Platform.exit();
                 default -> throw new IllegalArgumentException("Unexpected value: " + type);
             }
         } catch (Exception e) {
             Log.log("Error while starting the " + type + " Screen: " + e);
+            e.printStackTrace();
         }
     }
 
@@ -68,10 +70,10 @@ public class ConcreteContextMediator extends Application implements AppContext {
         return mapModel;
     }
 
-    public GameEngine getEngineModel() {
-        return engine;
-    }
-    
+//    public GameEngine getEngineModel() {
+//        return engine;
+//    }
+
     public Snake getSnakeModel() {
         return snake;
     }

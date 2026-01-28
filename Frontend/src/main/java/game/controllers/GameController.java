@@ -1,79 +1,148 @@
 package game.controllers;
 
+import game.models.Position;
+import game.models.character.Direction;
+import game.models.character.Node;
 import game.models.character.Snake;
 import game.models.map.Map;
-import game.models.map.factory.ConcreteEmptyTile;
+import game.view.GameGridCanvas;
 import game.view.components.GameGrid;
+import game.view.flyweight.Flyweight;
+import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.StackPane;
 import utils.context.AppContext;
-import utils.context.ViewMediator;
+
 
 public class GameController {
-    private AppContext context; // TODO: on "Game Over" set view to some EndScreenView, and from there back to Main Menu
     private Map mapModel;
     private Snake snake;
-    
+    private Flyweight snakeGraphics;
+    private GraphicsContext gc;
+    private GameGrid grid;
+    private Direction currentDirection;
+    private AnimationTimer gameLoop;
+
     public GameController() {
+        this.currentDirection = Direction.UP;
     }
-    
-    
-    @FXML
-    private GridPane tileContainer;
+
 
     @FXML
-    private FlowPane gameRoot;
+    private Canvas gameCanvas;
+
+    @FXML
+    private StackPane gameRoot;
 
     @FXML
     public void initialize() {
-        GameGrid grid = new ConcreteEmptyTile();
-        Platform.runLater(() -> {
-            validateGameContainerPosition();
-            try {
-                mapModel.initializeMap();
-                grid.populateGrid(tileContainer, mapModel.getLogicalMap());
-//                int centerX = mapModel.getCenterPosition()[0][0];
-//                int centerY = mapModel.getCenterPosition()[0][1];
-//                snake.initializeSnake();
-            } catch (Exception e) {
-                System.out.println("Grid Error: " + e.getMessage());
-            }
-        });
-    }
-
-    private void validateGameContainerPosition() {
-        double MIN_SIZE = 600;
-        double MIN_AREA = MIN_SIZE * MIN_SIZE;
-        double AREA_MULTIPLIER = 0.9;
+        gc = gameCanvas.getGraphicsContext2D();
         
-        double gameRootHeight = gameRoot.getHeight();
-        double gameRootWidth = gameRoot.getWidth();
-        double gameRootArea = gameRootHeight * gameRootWidth;
+        // AI generated resizing logic
+        gameRoot.widthProperty().addListener((obs, ov, nv) -> resizeCanvasToSquareAndRedraw());
+        gameRoot.heightProperty().addListener((obs, ov, nv) -> resizeCanvasToSquareAndRedraw());
+        Platform.runLater(this::resizeCanvasToSquareAndRedraw);
 
-        double size;
-        if (gameRootArea < MIN_AREA) {
-            size = MIN_SIZE * AREA_MULTIPLIER;
-        } else if (gameRootHeight != gameRootWidth) {
-            size = Math.min(gameRootWidth, gameRootHeight) * AREA_MULTIPLIER;
-        } else {
-            // Height is used here because the program has ensured that the container is a square (w == h)
-            size = gameRootHeight * AREA_MULTIPLIER;
-        }
+    }
+
+    private void resizeCanvasToSquareAndRedraw() {
+        double size = Math.min(gameRoot.getWidth(), gameRoot.getHeight());
+        if (size <= 0) return;
+        gameCanvas.setWidth(size);
+        gameCanvas.setHeight(size);
+
+        redraw();
+    }
+
+    
+    // AI generated centering logic
+    private void redraw() {
+        if (mapModel == null || grid == null) return;
+        double canvasW = gameCanvas.getWidth();
+        double canvasH = gameCanvas.getHeight();
+
+        int cells = mapModel.getLogicalMap().length;
+        int cellPx = mapModel.getTileSize().getValue();
+
+        double boardW = cells * cellPx;
+        double boardH = cells * cellPx;
+
+        double offsetX = Math.floor((canvasW - boardW) / 2.0);
+        double offsetY = Math.floor((canvasH - boardH) / 2.0);
         
-        setTileContainerDims(size);
+        // Reset any previous transforms so offsets don't stack up
+        gc.setTransform(1, 0, 0, 1, 0, 0);
+        gc.clearRect(0, 0, canvasW, canvasH);
+        gc.save();
+        gc.translate(offsetX, offsetY);
+        grid.render(gc, mapModel.getLogicalMap()); // draws from (0,0) -> now centered
+        drawSnake();                               // snake uses x*tile,y*tile -> now centered too
+        gc.restore();
     }
 
-    private void setTileContainerDims(double size) {
-        tileContainer.setPrefHeight(size);
-        tileContainer.setPrefWidth(size);
-    }
 
     public void setContext(AppContext context) {
-        this.context = context;
         this.mapModel = context.getMapModel();
         this.snake = context.getSnakeModel();
+
+        postContextInit();
+    }
+
+    private void postContextInit() {
+        grid = new GameGridCanvas(mapModel.getTileSize());
+        mapModel.initializeMap();
+        grid.render(gc, mapModel.getLogicalMap());
+        Position center = mapModel.getCenterPosition();
+        snake.initializeSnake(center);
+
+        // Start game loop here
+    }
+
+    private void drawSnake() {
+        Node current = snake.getHead();
+        int tileSize = mapModel.getTileSize().getValue();
+
+        while (current != null) {
+            int x = current.getPosition().getX();
+            int y = current.getPosition().getY();
+            double multiplier = validateMultiplier(current);
+
+            current.getNode().draw(gc, x, y, tileSize, multiplier);
+
+            current = current.getNext();
+        }
+    }
+
+    private double validateMultiplier(Node node) {
+        boolean isHead = node.getPrev() == null;
+        boolean isTail = node.getNext() == null;
+
+        return isHead ? 1.1 : isTail ? 0.9 : 1.0;
+    }
+
+    @FXML
+    public void keyPressed(KeyEvent evt) {
+        KeyCode key = evt.getCode();
+
+        switch (key) {
+            case UP, W -> {
+                if (currentDirection != Direction.DOWN) currentDirection = Direction.UP;
+            }
+            case DOWN, S -> {
+                if (currentDirection != Direction.UP) currentDirection = Direction.DOWN;
+            }
+            case LEFT, A -> {
+                if (currentDirection != Direction.RIGHT) currentDirection = Direction.LEFT;
+            }
+            case RIGHT, D -> {
+                if (currentDirection != Direction.LEFT) currentDirection = Direction.RIGHT;
+            }
+        }
     }
 }
 

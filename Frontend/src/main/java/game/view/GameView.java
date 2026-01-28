@@ -9,27 +9,28 @@ import javafx.stage.Stage;
 import utils.FetchFxml;
 import utils.context.AppContext;
 
-public class GameView extends Application{
-    private final String GAME_VIEW_NAME = "game";
+public class GameView {
     private final AppContext context;
 
     public GameView(AppContext context) {
         this.context = context;
     }
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void show(Stage stage) throws Exception {
+        String GAME_VIEW_NAME = "game";
         FXMLLoader loader = FetchFxml.fetchAndValidateLoader(this, GAME_VIEW_NAME);
         Scene scene = new Scene(loader.load(), Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
         scene.getStylesheets().add("/css/game_window_stylesheet.css");
+
         GameController controller = loader.getController();
         controller.setContext(context);
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("Snake - Game");
-        primaryStage.show();
-    }
- 
-    public String getViewName() {
-        return GAME_VIEW_NAME;
+
+        scene.setOnKeyPressed(controller::keyPressed);
+
+        stage.setScene(scene);
+        stage.setTitle("Snake - Game");
+        stage.show();
+
+        scene.getRoot().requestFocus();
     }
 }

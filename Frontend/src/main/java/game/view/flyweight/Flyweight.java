@@ -1,7 +1,8 @@
 package game.view.flyweight;
 
-import javafx.scene.layout.HBox;
+import javafx.scene.canvas.GraphicsContext;
+
 
 public interface Flyweight {
-    HBox getSnakeBody();
+    void draw(GraphicsContext gc, int x, int y, int cellSize, double sizeMultiplier);
 }

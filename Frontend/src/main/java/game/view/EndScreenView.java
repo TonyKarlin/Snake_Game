@@ -8,22 +8,21 @@ import javafx.stage.Stage;
 import utils.FetchFxml;
 import utils.context.AppContext;
 
-public class EndScreenView extends Application {
+public class EndScreenView {
     private final AppContext context;
     private final String END_SCREEN_VIEW_NAME = "end_screen";
     
     public EndScreenView(AppContext context) {
         this.context = context;
     }
-
-    @Override
-    public void start(Stage primaryStage) throws Exception {
+    
+    public void show(Stage stage) throws Exception {
         FXMLLoader loader = FetchFxml.fetchAndValidateLoader(this, "end_screen");
-        primaryStage.setScene(new Scene(loader.load(), 600, 400));
+        stage.setScene(new Scene(loader.load(), 600, 400));
         EndScreenController controller = loader.getController();
         controller.setMediator(context);
         
-        primaryStage.setTitle("Snake - Game Over");
-        primaryStage.show();
+        stage.setTitle("Snake - Game Over");
+        stage.show();
     }
 }

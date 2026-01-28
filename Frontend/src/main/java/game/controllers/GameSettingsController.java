@@ -4,6 +4,7 @@ import game.models.GameEngine;
 import game.models.map.Map;
 import game.models.settings.Difficulty;
 import game.models.settings.MapSize;
+import game.models.settings.TileSize;
 import game.view.components.BackButton;
 import game.view.components.CustomButton;
 import game.view.components.CustomOptionButton;
@@ -18,15 +19,17 @@ import java.util.List;
 public class GameSettingsController {
     private final List<CustomButton> navigationButtons;
     private final List<CustomOptionButton> difficultyButtons;
-    private final List<CustomOptionButton> sizeButtons;
+    private final List<CustomOptionButton> gridSizeButtons;
+    private final List<CustomOptionButton> tileSizeButtons;
     private AppContext context;
     private Map mapModel;
     private GameEngine engine;
     
     public GameSettingsController() {
+        this.tileSizeButtons = new ArrayList<>();
         this.navigationButtons = new ArrayList<>();
         this.difficultyButtons = new ArrayList<>();
-        this.sizeButtons = new ArrayList<>();
+        this.gridSizeButtons = new ArrayList<>();
     }
     
     @FXML
@@ -36,12 +39,16 @@ public class GameSettingsController {
     private HBox difficultyContainer;
     
     @FXML
-    private HBox sizeContainer;
+    private HBox gridSizeContainer;
+    
+    @FXML
+    private HBox tileSizeContainer;
     
     @FXML
     public void initialize() {
         addDifficulties();
-        addSizes();
+        addGridSizes();
+        addTileSizes();
     }
     
     public void initButtons() {
@@ -69,16 +76,28 @@ public class GameSettingsController {
         }
     }
     
-    public void addSizes() {
+    public void addGridSizes() {
         for (MapSize size : MapSize.values()) {
-            CustomOptionButton button = new CustomOptionButton(size.name(), sizeButtons) {
+            CustomOptionButton button = new CustomOptionButton(size.name(), gridSizeButtons) {
                 @Override
                 public void onToggle() {
                     setSize(size.getValue());
                     System.out.println("Map Size set to: " + size.name());
                 }
             };
-            sizeContainer.getChildren().add(button.getButtonComponent());
+            gridSizeContainer.getChildren().add(button.getButtonComponent());
+        }
+    }
+    
+    public void addTileSizes() {
+        for (TileSize size : TileSize.values()) {
+            CustomOptionButton button = new CustomOptionButton(size.name(), tileSizeButtons) {
+                @Override
+                public void onToggle() {
+                    setCellSize(size);
+                }
+            };
+            tileSizeContainer.getChildren().add(button.getButtonComponent());
         }
     }
     
@@ -87,7 +106,11 @@ public class GameSettingsController {
     }
     
     public void setDifficulty(int tickSpeed) {
-        engine.setTick(tickSpeed);
+//        engine.setTick(tickSpeed);
+    }
+    
+    public void setCellSize(TileSize size) {
+        mapModel.setTileSize(size);
     }
 
     public void setMediator(AppContext context) {
@@ -98,6 +121,6 @@ public class GameSettingsController {
     public void setContext(AppContext context) {
         this.context = context;
         this.mapModel = context.getMapModel();
-        this.engine = context.getEngineModel();
+//        this.engine = context.getEngineModel();
     }
 }

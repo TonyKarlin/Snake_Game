@@ -9,17 +9,16 @@ import javafx.stage.Stage;
 import utils.FetchFxml;
 import utils.context.AppContext;
 
-public class MenuView extends Application{
-    private final String MENU_VIEW_NAME = "menu";
+public class MenuView {
     private final AppContext context;
 
 
     public MenuView(AppContext context) {
         this.context = context;
     }
-
-    @Override
-    public void start(Stage stage) throws Exception {
+    
+    public void show(Stage stage) throws Exception {
+        String MENU_VIEW_NAME = "menu";
         FXMLLoader loader = FetchFxml.fetchAndValidateLoader(this, MENU_VIEW_NAME);
         Parent root = loader.load();
         MainMenuController controller = loader.getController();
@@ -33,9 +32,5 @@ public class MenuView extends Application{
         stage.setTitle("Snake - Main Menu");
         stage.show();
 
-    }
-
-    public String getViewName() {
-        return MENU_VIEW_NAME;
     }
 }
