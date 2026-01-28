@@ -22,7 +22,6 @@ import utils.context.AppContext;
 public class GameController {
     private Map mapModel;
     private Snake snake;
-    private Flyweight snakeGraphics;
     private GraphicsContext gc;
     private GameGrid grid;
     private Direction currentDirection;
