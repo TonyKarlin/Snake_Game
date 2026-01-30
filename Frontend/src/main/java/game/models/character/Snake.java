@@ -20,8 +20,6 @@ public class Snake {
     }
 
     public void initializeSnake(Position centerPosition) {
-        Log.log("Initializing Snake...");
-
         int startLength = 3;
         SnakeBodyType[] types = {
             SnakeBodyType.HEAD,
@@ -56,51 +54,34 @@ public class Snake {
         size++;
     }
     
-    public void addToTheHead(SnakeBodyType type) {
-        SnakeBody body = SnakeBodyFactory.getBodyExtension(type);
+    public void shrink() {
+        size--;
+    }
+    
+    public void addToTheHead(Position newPos) {
+        SnakeBody body = SnakeBodyFactory.getBodyExtension(SnakeBodyType.HEAD);
 
         if (head == null) throw new IllegalStateException("Cannot add to head of an uninitialized snake");
-        Position headPos = head.getPosition();
         
-        Node newNode = new Node(
-            body,
-            new Position(headPos.getX(), headPos.getY())
-        );
+        Node newNode = new Node(body, newPos);
 
+        head.setType(SnakeBodyType.BODY);
         head.setPrev(newNode);
         newNode.setNext(head);
         head = newNode;
     }
 
-    public void addToTheTail(SnakeBodyType type) {
-        SnakeBody body = SnakeBodyFactory.getBodyExtension(type);
-
-        if (tail == null) throw new IllegalStateException("Cannot add to tail of an uninitialized snake");
-        Position tailPos = tail.getPosition();
-        
-        Node newNode = new Node(
-            body,
-            new Position(tailPos.getX(), tailPos.getY())
-        );
-
-        tail.setType(SnakeBodyType.BODY);
-        tail.setNext(newNode);
-        newNode.setPrev(tail);
-        tail = newNode;
-    }
     
     public void removeTail() {
-        if (tail == null) return;
-        if (head == tail) {
-            head = null;
-            tail = null;
-            return;
-        }
+        if (tail == null) throw new IllegalStateException("Cannot remove tail of an uninitialized snake");
+        
         Node temp = getTail();
         tail = temp.getPrev();
+        tail.setType(SnakeBodyType.TAIL);
         tail.setNext(null);
         temp.setPrev(null);
     }
+    
     public boolean isCollidingWithSelf(Position pos) {
         Node current = head;
         while (current != null) {

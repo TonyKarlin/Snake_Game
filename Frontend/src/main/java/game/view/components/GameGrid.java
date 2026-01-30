@@ -7,9 +7,9 @@ import javafx.scene.paint.Color;
 
 public abstract class GameGrid {
 
-    protected final TileSize cellSize;
+    protected final int cellSize;
 
-    protected GameGrid(TileSize cellSize) {
+    protected GameGrid(int cellSize) {
         this.cellSize = cellSize;
     }
 

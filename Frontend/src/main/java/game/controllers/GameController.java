@@ -1,5 +1,6 @@
 package game.controllers;
 
+import game.models.GameEngine;
 import game.models.Position;
 import game.models.character.Direction;
 import game.models.character.Node;
@@ -7,13 +8,11 @@ import game.models.character.Snake;
 import game.models.map.Map;
 import game.view.GameGridCanvas;
 import game.view.components.GameGrid;
-import game.view.flyweight.Flyweight;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import utils.context.AppContext;
@@ -22,16 +21,10 @@ import utils.context.AppContext;
 public class GameController {
     private Map mapModel;
     private Snake snake;
+    private GameEngine engine;
     private GraphicsContext gc;
     private GameGrid grid;
-    private Direction currentDirection;
-    private AnimationTimer gameLoop;
-
-    public GameController() {
-        this.currentDirection = Direction.UP;
-    }
-
-
+    
     @FXML
     private Canvas gameCanvas;
 
@@ -61,12 +54,12 @@ public class GameController {
     
     // AI generated centering logic
     private void redraw() {
-        if (mapModel == null || grid == null) return;
+        if (grid == null) return;
         double canvasW = gameCanvas.getWidth();
         double canvasH = gameCanvas.getHeight();
 
         int cells = mapModel.getLogicalMap().length;
-        int cellPx = mapModel.getTileSize().getValue();
+        int cellPx = mapModel.getTileSize();
 
         double boardW = cells * cellPx;
         double boardH = cells * cellPx;
@@ -88,23 +81,36 @@ public class GameController {
     public void setContext(AppContext context) {
         this.mapModel = context.getMapModel();
         this.snake = context.getSnakeModel();
-
-        postContextInit();
+        this.engine = context.getEngineModel();
     }
 
-    private void postContextInit() {
+    public void load() {
         grid = new GameGridCanvas(mapModel.getTileSize());
         mapModel.initializeMap();
         grid.render(gc, mapModel.getLogicalMap());
         Position center = mapModel.getCenterPosition();
         snake.initializeSnake(center);
 
-        // Start game loop here
+        startGameLoop();
+    }
+
+    public void startGameLoop() {
+        engine.start();
+        AnimationTimer gameLoop = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                boolean ticked = engine.loop(now);
+                if (ticked) {
+                    redraw();
+                }
+            }
+        };
+        gameLoop.start();
     }
 
     private void drawSnake() {
         Node current = snake.getHead();
-        int tileSize = mapModel.getTileSize().getValue();
+        int tileSize = mapModel.getTileSize();
 
         while (current != null) {
             int x = current.getPosition().getX();
@@ -121,26 +127,21 @@ public class GameController {
         boolean isHead = node.getPrev() == null;
         boolean isTail = node.getNext() == null;
 
-        return isHead ? 1.1 : isTail ? 0.9 : 1.0;
+        return isHead ? 1.05 : isTail ? 0.95 : 1.0;
     }
 
     @FXML
     public void keyPressed(KeyEvent evt) {
-        KeyCode key = evt.getCode();
-
-        switch (key) {
-            case UP, W -> {
-                if (currentDirection != Direction.DOWN) currentDirection = Direction.UP;
-            }
-            case DOWN, S -> {
-                if (currentDirection != Direction.UP) currentDirection = Direction.DOWN;
-            }
-            case LEFT, A -> {
-                if (currentDirection != Direction.RIGHT) currentDirection = Direction.LEFT;
-            }
-            case RIGHT, D -> {
-                if (currentDirection != Direction.LEFT) currentDirection = Direction.RIGHT;
-            }
+        Direction nextDir = switch (evt.getCode()) {
+            case UP, W -> Direction.UP;
+            case DOWN, S -> Direction.DOWN;
+            case LEFT, A -> Direction.LEFT;
+            case RIGHT, D -> Direction.RIGHT;
+            default -> null;
+        };
+        
+        if (nextDir != null) {
+            engine.changeDirection(nextDir);
         }
     }
 }

@@ -52,7 +52,6 @@ public class MainMenuController {
 
     public void setMediator(ViewMediator viewMediator) {
         this.viewMediator = viewMediator;
-        initButtons();
     }
 
 }

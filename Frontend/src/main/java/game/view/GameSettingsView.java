@@ -23,8 +23,9 @@ public class GameSettingsView {
         Scene scene = new Scene(loader.load(), 600, 600);
         scene.getStylesheets().add("/css/game_settings_stylesheet.css");
         GameSettingsController controller = loader.getController();
-        controller.setMediator(context);
         controller.setContext(context);
+        controller.initButtons();
+        
         stage.setScene(scene);
         stage.setTitle("Snake - GameOptions");
         stage.show();

@@ -23,6 +23,7 @@ public class MenuView {
         Parent root = loader.load();
         MainMenuController controller = loader.getController();
         controller.setMediator(context);
+        controller.initButtons();
 
         Scene scene = new Scene(root, 600, 600);
         scene.getStylesheets().add("/css/menu_stylesheet.css");

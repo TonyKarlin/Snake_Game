@@ -1,7 +1,6 @@
 package game.view.flyweight;
 
 import javafx.scene.paint.Color;
-import utils.Log;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,7 +11,6 @@ public class SnakeBodyFactory {
     public static SnakeBody getBodyExtension(SnakeBodyType type) {
         SnakeBody extension = snakeExtensionGraphics.get(type);
         if (extension == null) {
-            Log.log("Creating new SnakeBody of type: " + type);
             extension = create(type);
             snakeExtensionGraphics.put(type, extension);
         }

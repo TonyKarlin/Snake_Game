@@ -9,7 +9,7 @@ import javafx.scene.paint.Color;
 public class GameGridCanvas extends GameGrid {
     
     
-    public GameGridCanvas(TileSize cellSize) {
+    public GameGridCanvas(int cellSize) {
         super(cellSize);
     }
 
@@ -26,7 +26,7 @@ public class GameGridCanvas extends GameGrid {
             case FOOD -> gc.setFill(Color.RED);
             case EMPTY -> gc.setFill(Color.BLACK);
         }
-        int size = cellSize.getValue();
+        int size = cellSize;
 
         gc.fillRect(
             x * size,

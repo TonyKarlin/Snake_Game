@@ -8,7 +8,7 @@ import java.util.Random;
 public class Map {
     private TileType[][] logicalMap; // A map that indicates each Tiles purpose on the Grid
     private int size;
-    private TileSize tileSize;
+    private int tileSize;
 
     public void initializeMap() {
         System.out.println("Initializing map of size: " + size);
@@ -27,8 +27,14 @@ public class Map {
         logicalMap = newMap;
     }
     
+    public boolean isObstacle(Position pos) {
+        if (isOOB(pos.getX(), pos.getY())) throw new IllegalArgumentException("Coordinates out of bounds");
 
-    private void spawnFood(int size) {
+        return getLogicalMap()[pos.getX()][pos.getY()] == TileType.OBSTACLE;
+    }
+    
+
+    private void generateFood(int size) {
         Random rand = new Random();
         int x, y;
         do {
@@ -38,8 +44,14 @@ public class Map {
 
         getLogicalMap()[x][y] = TileType.FOOD;
     }
+    
+    public boolean isFood(Position pos) {
+        if (isOOB(pos.getX(), pos.getY())) throw new IllegalArgumentException("Coordinates out of bounds");
 
-    private void resetTile(int x, int y) {
+        return getLogicalMap()[pos.getX()][pos.getY()] == TileType.FOOD;
+    }
+
+    public void resetTile(int x, int y) {
         if (logicalMap == null) throw new IllegalStateException("Map not yet initialized");
 
         if (isOOB(x, y)) throw new IllegalArgumentException("Coordinates out of bounds");
@@ -70,11 +82,11 @@ public class Map {
         this.size = size;
     }
 
-    public TileSize getTileSize() {
+    public int getTileSize() {
         return tileSize;
     }
 
-    public void setTileSize(TileSize tileSize) {
+    public void setTileSize(int tileSize) {
         this.tileSize = tileSize;
     }
 

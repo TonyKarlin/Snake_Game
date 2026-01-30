@@ -24,6 +24,7 @@ public class GameView {
 
         GameController controller = loader.getController();
         controller.setContext(context);
+        controller.load();
 
         scene.setOnKeyPressed(controller::keyPressed);
 
