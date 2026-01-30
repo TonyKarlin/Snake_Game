@@ -12,24 +12,27 @@ import utils.Log;
 import game.view.ViewTypes;
 
 public class ConcreteContextMediator extends Application implements AppContext {
-    // Models
+    // models
     private final Map mapModel;
-    //    private final GameEngine engine;
+    private final GameEngine engine;
+    private final GameState gameState;
     private final Snake snake;
 
-    // Views
+    // views
     private final MenuView menu;
     private final GameView game;
     private final GameSettingsView options;
     private final HiscoresView hiscores;
     private final EndScreenView end;
 
+    // primaryStage for the application to live in
     private Stage primaryStage;
 
     public ConcreteContextMediator() {
         this.mapModel = new Map();
-//        this.engine = new GameEngine();
+        this.gameState = new GameState();
         this.snake = new Snake();
+        this.engine = new GameEngine(gameState, mapModel, snake);
 
         this.hiscores = new HiscoresView(this);
         this.menu = new MenuView(this);
@@ -37,6 +40,7 @@ public class ConcreteContextMediator extends Application implements AppContext {
         this.options = new GameSettingsView(this);
         this.end = new EndScreenView(this);
     }
+    
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -66,14 +70,22 @@ public class ConcreteContextMediator extends Application implements AppContext {
         }
     }
 
+    @Override
     public Map getMapModel() {
         return mapModel;
     }
 
-//    public GameEngine getEngineModel() {
-//        return engine;
-//    }
+    @Override
+    public GameEngine getEngineModel() {
+        return engine;
+    }
 
+    @Override
+    public GameState getGameState() {
+        return gameState;
+    }
+
+    @Override
     public Snake getSnakeModel() {
         return snake;
     }

@@ -7,6 +7,7 @@ import game.models.map.Map;
 
 public interface ModelContext {
     Map getMapModel();
-//    GameEngine getEngineModel();
     Snake getSnakeModel();
+    GameState getGameState();
+    GameEngine getEngineModel();
 }
