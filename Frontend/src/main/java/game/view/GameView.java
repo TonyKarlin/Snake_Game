@@ -30,6 +30,8 @@ public class GameView {
 
         stage.setScene(scene);
         stage.setTitle("Snake - Game");
+        stage.sizeToScene();
+        stage.setResizable(false);
         stage.show();
 
         scene.getRoot().requestFocus();

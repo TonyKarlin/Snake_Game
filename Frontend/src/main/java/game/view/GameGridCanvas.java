@@ -26,13 +26,12 @@ public class GameGridCanvas extends GameGrid {
             case FOOD -> gc.setFill(Color.RED);
             case EMPTY -> gc.setFill(Color.BLACK);
         }
-        int size = cellSize;
 
         gc.fillRect(
-            x * size,
-            y * size,
-            size,
-            size
+            x * cellSize,
+            y * cellSize,
+            cellSize,
+            cellSize
         );
     }
 }

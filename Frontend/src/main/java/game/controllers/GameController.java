@@ -9,11 +9,11 @@ import game.models.map.Map;
 import game.view.GameGridCanvas;
 import game.view.components.GameGrid;
 import javafx.animation.AnimationTimer;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import utils.context.AppContext;
 
@@ -34,49 +34,19 @@ public class GameController {
     @FXML
     public void initialize() {
         gc = gameCanvas.getGraphicsContext2D();
-        
-        // AI generated resizing logic
-        gameRoot.widthProperty().addListener((obs, ov, nv) -> resizeCanvasToSquareAndRedraw());
-        gameRoot.heightProperty().addListener((obs, ov, nv) -> resizeCanvasToSquareAndRedraw());
-        Platform.runLater(this::resizeCanvasToSquareAndRedraw);
 
+        gameRoot.setMinSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
+        gameRoot.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
+
+        gameRoot.prefWidthProperty().bind(gameCanvas.widthProperty());
+        gameRoot.prefHeightProperty().bind(gameCanvas.heightProperty());
     }
 
-    private void resizeCanvasToSquareAndRedraw() {
-        double size = Math.min(gameRoot.getWidth(), gameRoot.getHeight());
-        if (size <= 0) return;
-        gameCanvas.setWidth(size);
-        gameCanvas.setHeight(size);
-
-        redraw();
-    }
-
-    
-    // AI generated centering logic
     private void redraw() {
-        if (grid == null) return;
-        double canvasW = gameCanvas.getWidth();
-        double canvasH = gameCanvas.getHeight();
-
-        int cells = mapModel.getLogicalMap().length;
-        int cellPx = mapModel.getTileSize();
-
-        double boardW = cells * cellPx;
-        double boardH = cells * cellPx;
-
-        double offsetX = Math.floor((canvasW - boardW) / 2.0);
-        double offsetY = Math.floor((canvasH - boardH) / 2.0);
-        
-        // Reset any previous transforms so offsets don't stack up
-        gc.setTransform(1, 0, 0, 1, 0, 0);
-        gc.clearRect(0, 0, canvasW, canvasH);
-        gc.save();
-        gc.translate(offsetX, offsetY);
-        grid.render(gc, mapModel.getLogicalMap()); // draws from (0,0) -> now centered
-        drawSnake();                               // snake uses x*tile,y*tile -> now centered too
-        gc.restore();
+        gc.clearRect(0, 0, gameCanvas.getWidth(), gameCanvas.getHeight());
+        grid.render(gc, mapModel.getLogicalMap());
+        drawSnake();
     }
-
 
     public void setContext(AppContext context) {
         this.mapModel = context.getMapModel();
@@ -88,10 +58,23 @@ public class GameController {
         grid = new GameGridCanvas(mapModel.getTileSize());
         mapModel.initializeMap();
         grid.render(gc, mapModel.getLogicalMap());
+        setClientSize();
         Position center = mapModel.getCenterPosition();
         snake.initializeSnake(center);
 
         startGameLoop();
+    }
+    
+    private void setClientSize() {
+        double size = getClientSize();
+        gameCanvas.setWidth(size);
+        gameCanvas.setHeight(size);
+    }
+    
+    private double getClientSize() {
+        int cells = mapModel.getLogicalMap().length;
+        int tileSize = mapModel.getTileSize();
+        return cells * tileSize;
     }
 
     public void startGameLoop() {

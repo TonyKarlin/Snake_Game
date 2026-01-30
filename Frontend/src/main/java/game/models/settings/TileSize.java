@@ -2,8 +2,8 @@ package game.models.settings;
 
 public enum TileSize {
     SMALL(20),
-    MEDIUM(22),
-    LARGE(24);
+    MEDIUM(25),
+    LARGE(30);
 
     private final int value;
 
