@@ -61,6 +61,10 @@ public abstract class CustomButton {
             node.setStyle("-fx-text-fill: " + color + ";");
         });
     }
-    
+
+    public String getName() {
+        return name;
+    }
+
     public abstract void onClick();
 }
