@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<FlowPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+          prefWidth="600.0" style="-fx-background-color: #CE422B;" stylesheets="@../css/game_settings_stylesheet.css"
+          xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="game.controllers.EndScreenController">
+    <children>
+        <VBox alignment="TOP_CENTER" prefHeight="400.0" prefWidth="600.0">
+            <children>
+                <VBox alignment="CENTER" prefHeight="150.0" prefWidth="600.0">
+                    <children>
+                        <Label style="-fx-text-fill: #1e2020;" text="Game Over!" textAlignment="CENTER" wrapText="true">
+                            <font>
+                                <Font size="36.0"/>
+                            </font>
+                        </Label>
+                    </children>
+                </VBox>
+                <VBox alignment="TOP_CENTER" fillWidth="false" prefHeight="250.0" prefWidth="100.0">
+                    <children>
+                        <HBox fx:id="scoreContainer" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="289.0"
+                              spacing="10.0">
+                            <children>
+                                <Label style="-fx-text-fill: #f6eae0;" text="Score:" underline="true">
+                                    <font>
+                                        <Font size="24.0"/>
+                                    </font>
+                                    <HBox.margin>
+                                        <Insets left="50.0"/>
+                                    </HBox.margin>
+                                </Label>
+                                <Label fx:id="scoreLabel" style="-fx-text-fill: #f6eae0;" text="0"
+                                       textAlignment="CENTER" wrapText="true">
+                                    <font>
+                                        <Font size="24.0"/>
+                                    </font>
+                                </Label>
+                            </children>
+                        </HBox>
+                        <VBox prefHeight="200.0" prefWidth="600.0">
+                            <children>
+                                <HBox prefHeight="80.0" prefWidth="600.0">
+                                    <children>
+                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                            <children>
+                                                <Label style="-fx-text-fill: #f6eae0;" text="Food Eaten:">
+                                                    <font>
+                                                        <Font size="18.0"/>
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                            <children>
+                                                <Label style="-fx-text-fill: #f6eae0;" text="Time Survived:">
+                                                    <font>
+                                                        <Font size="18.0"/>
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                            <children>
+                                                <Label style="-fx-text-fill: #f6eae0;" text="Time / Eaten Food:">
+                                                    <font>
+                                                        <Font size="18.0"/>
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </HBox>
+                                <HBox prefHeight="120.0" prefWidth="200.0">
+                                    <children>
+                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                            <children>
+                                                <Label fx:id="foodLabel" style="-fx-text-fill: #f6eae0;">
+                                                    <font>
+                                                        <Font size="18.0"/>
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                            <children>
+                                                <Label fx:id="survivedLabel" style="-fx-text-fill: #f6eae0;">
+                                                    <font>
+                                                        <Font size="18.0"/>
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                            <children>
+                                                <Label fx:id="timePerFoodLabel" style="-fx-text-fill: #f6eae0;">
+                                                    <font>
+                                                        <Font size="18.0"/>
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+                    </children>
+                </VBox>
+                <HBox fx:id="endNavigationContainer" alignment="TOP_CENTER" fillHeight="false" prefHeight="100.0"
+                      prefWidth="600.0"/>
+            </children>
+        </VBox>
+    </children>
+</FlowPane>

@@ -81,7 +81,7 @@ public class ConcreteContextMediator extends Application implements AppContext {
     }
 
     @Override
-    public GameState getGameState() {
+    public GameState getGameStateModel() {
         return gameState;
     }
 

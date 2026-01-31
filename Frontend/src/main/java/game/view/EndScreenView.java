@@ -1,7 +1,6 @@
 package game.view;
 
 import game.controllers.EndScreenController;
-import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -17,10 +16,13 @@ public class EndScreenView {
     }
     
     public void show(Stage stage) throws Exception {
-        FXMLLoader loader = FetchFxml.fetchAndValidateLoader(this, "end_screen");
+        FXMLLoader loader = FetchFxml.fetchAndValidateLoader(this, END_SCREEN_VIEW_NAME);
         stage.setScene(new Scene(loader.load(), 600, 400));
         EndScreenController controller = loader.getController();
-        controller.setMediator(context);
+        controller.setContext(context);
+        controller.addNavigationButtons();
+        controller.reset();
+        controller.update();
         
         stage.setTitle("Snake - Game Over");
         stage.show();

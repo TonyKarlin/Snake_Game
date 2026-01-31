@@ -57,9 +57,8 @@ public abstract class CustomButton {
     }
     
     public void setButtonLabelColour(String color) {
-        this.buttonComponent.getChildren().filtered(node -> node instanceof Label).forEach(node -> {
-            node.setStyle("-fx-text-fill: " + color + ";");
-        });
+        this.buttonComponent.getChildren().filtered(node -> node instanceof Label).forEach(node ->
+            node.setStyle("-fx-text-fill: " + color + ";"));
     }
 
     public String getName() {
