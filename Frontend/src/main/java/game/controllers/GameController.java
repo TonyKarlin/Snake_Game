@@ -1,27 +1,34 @@
 package game.controllers;
 
 import game.models.GameEngine;
+import game.models.GameState;
 import game.models.Position;
 import game.models.character.Direction;
 import game.models.character.Node;
 import game.models.character.Snake;
 import game.models.map.Map;
 import game.view.GameGridCanvas;
+import game.view.ViewTypes;
 import game.view.components.GameGrid;
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import utils.Clock;
 import utils.context.AppContext;
 
 
 public class GameController {
+    private AppContext context;
     private Map mapModel;
     private Snake snake;
     private GameEngine engine;
+    private GameState state;
     private GraphicsContext gc;
     private GameGrid grid;
     
@@ -46,12 +53,15 @@ public class GameController {
         gc.clearRect(0, 0, gameCanvas.getWidth(), gameCanvas.getHeight());
         grid.render(gc, mapModel.getLogicalMap());
         drawSnake();
+        drawTimer();
     }
 
     public void setContext(AppContext context) {
+        this.context = context;
         this.mapModel = context.getMapModel();
         this.snake = context.getSnakeModel();
         this.engine = context.getEngineModel();
+        this.state = context.getGameStateModel();
     }
 
     public void load() {
@@ -61,7 +71,8 @@ public class GameController {
         setClientSize();
         Position center = mapModel.getCenterPosition();
         snake.initializeSnake(center);
-
+        
+        state.reset();
         startGameLoop();
     }
     
@@ -82,8 +93,14 @@ public class GameController {
         AnimationTimer gameLoop = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                boolean ticked = engine.loop(now);
-                if (ticked) {
+                
+                if (state.isGameOver()) {
+                    stop();
+                    context.updateView(ViewTypes.END);
+                    return;
+                }
+                boolean hasTickUpdated = engine.loop(now);
+                if (hasTickUpdated) {
                     redraw();
                 }
             }
@@ -104,6 +121,14 @@ public class GameController {
 
             current = current.getNext();
         }
+    }
+    
+    public void drawTimer() {
+        double seconds = Clock.getInstance().getElapsedTimeInMs();
+        // place at top center
+        gc.fillText(String.format("Time: %.2f", seconds / 1000), (gameCanvas.getWidth() / 2) - 20, 17);
+        gc.setFill(Color.BLACK);
+        
     }
 
     private double validateMultiplier(Node node) {

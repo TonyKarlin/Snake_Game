@@ -9,9 +9,9 @@ public class Map {
     private TileType[][] logicalMap; // A map that indicates each Tiles purpose on the Grid
     private int size;
     private int tileSize;
+    private boolean foodGenerated = false;
 
     public void initializeMap() {
-        System.out.println("Initializing map of size: " + size);
         if (size < 1) {
             throw new IllegalArgumentException("Error initializing map! Size cannot be less than 1");
         }
@@ -25,16 +25,10 @@ public class Map {
             }
         }
         logicalMap = newMap;
+        generateFood(size);
     }
-    
-    public boolean isObstacle(Position pos) {
-        if (isOOB(pos.getX(), pos.getY())) throw new IllegalArgumentException("Coordinates out of bounds");
 
-        return getLogicalMap()[pos.getX()][pos.getY()] == TileType.OBSTACLE;
-    }
-    
-
-    private void generateFood(int size) {
+    public void generateFood(int size) {
         Random rand = new Random();
         int x, y;
         do {
@@ -43,12 +37,21 @@ public class Map {
         } while (!isEmpty(x, y));
 
         getLogicalMap()[x][y] = TileType.FOOD;
+        setFoodGenerated(true);
     }
     
     public boolean isFood(Position pos) {
         if (isOOB(pos.getX(), pos.getY())) throw new IllegalArgumentException("Coordinates out of bounds");
 
         return getLogicalMap()[pos.getX()][pos.getY()] == TileType.FOOD;
+    }
+    
+    public boolean isFoodGenerated() {
+        return foodGenerated;
+    }
+
+    public void setFoodGenerated(boolean foodGenerated) {
+        this.foodGenerated = foodGenerated;
     }
 
     public void resetTile(int x, int y) {
@@ -62,6 +65,12 @@ public class Map {
     public Position getCenterPosition() {
         int center = size / 2;
         return new Position(center, center);
+    }
+
+    public boolean isObstacle(Position pos) {
+        if (isOOB(pos.getX(), pos.getY())) throw new IllegalArgumentException("Coordinates out of bounds");
+
+        return getLogicalMap()[pos.getX()][pos.getY()] == TileType.OBSTACLE;
     }
 
     private boolean isEdge(int i, int j, int size) {
@@ -80,6 +89,10 @@ public class Map {
     
     public void setSize(int size) {
         this.size = size;
+    }
+
+    public int getSize() {
+        return size;
     }
 
     public int getTileSize() {

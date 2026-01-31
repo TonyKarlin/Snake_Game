@@ -3,7 +3,6 @@
 <?import javafx.scene.canvas.*?>
 <?import javafx.scene.layout.*?>
 
-<StackPane fx:id="gameRoot" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.12"
-           fx:controller="game.controllers.GameController">
-    <Canvas fx:id="gameCanvas"/>
+<StackPane fx:id="gameRoot" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.controllers.GameController">
+    <Canvas fx:id="gameCanvas" />
 </StackPane>
