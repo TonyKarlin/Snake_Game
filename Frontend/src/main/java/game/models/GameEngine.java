@@ -6,9 +6,6 @@ import game.models.character.Snake;
 import game.models.map.Map;
 import utils.Clock;
 
-import java.util.HashSet;
-import java.util.Set;
-
 
 public class GameEngine {
     private final GameState state;
@@ -66,13 +63,19 @@ public class GameEngine {
     public void start() {
         reset();
         this.isRunning = true;
-        this.currentDirection = Direction.UP;
+        if (currentDirection == null) {
+            this.currentDirection = Direction.UP;
+        }
         queuedDirection = null;
         Clock.getInstance().reset();
     }
     
-    public void stop() {
+    public void pause() {
         this.isRunning = false;
+    }
+    
+    public void resume() {
+        this.isRunning = true;
     }
     
     public void reset() {

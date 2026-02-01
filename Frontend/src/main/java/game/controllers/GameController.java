@@ -7,11 +7,12 @@ import game.models.character.Direction;
 import game.models.character.Node;
 import game.models.character.Snake;
 import game.models.map.Map;
-import game.view.GameGridCanvas;
+import game.view.components.GameGridCanvas;
 import game.view.ViewTypes;
 import game.view.components.GameGrid;
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
@@ -30,7 +31,7 @@ public class GameController {
     private GameState state;
     private GraphicsContext gc;
     private GameGrid grid;
-    
+
     @FXML
     private Canvas gameCanvas;
 
@@ -70,17 +71,17 @@ public class GameController {
         setClientSize();
         Position center = mapModel.getCenterPosition();
         snake.initializeSnake(center);
-        
+
         state.reset();
         startGameLoop();
     }
-    
+
     private void setClientSize() {
         double size = getClientSize();
         gameCanvas.setWidth(size);
         gameCanvas.setHeight(size);
     }
-    
+
     private double getClientSize() {
         int cells = mapModel.getLogicalMap().length;
         int tileSize = mapModel.getTileSize();
@@ -92,15 +93,16 @@ public class GameController {
         AnimationTimer gameLoop = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                
-                if (state.isGameOver()) {
-                    stop();
-                    context.updateView(ViewTypes.END);
-                    return;
-                }
-                boolean hasTickUpdated = engine.loop(now);
-                if (hasTickUpdated) {
-                    redraw();
+                if (engine.isRunning()) {
+                    if (state.isGameOver()) {
+                        stop();
+                        context.updateView(ViewTypes.END);
+                        return;
+                    }
+                    boolean hasTickUpdated = engine.loop(now);
+                    if (hasTickUpdated) {
+                        redraw();
+                    }
                 }
             }
         };
@@ -121,13 +123,13 @@ public class GameController {
             current = current.getNext();
         }
     }
-    
+
     public void drawTimer() {
         double seconds = Clock.getInstance().getElapsedTimeInMs();
         // place at top center
         gc.fillText(String.format("Time: %.2f", seconds / 1000), (gameCanvas.getWidth() / 2) - 20, 17);
         gc.setFill(Color.BLACK);
-        
+
     }
 
     private double validateMultiplier(Node node) {
@@ -136,20 +138,25 @@ public class GameController {
 
         return isHead ? 1.05 : isTail ? 0.95 : 1.0;
     }
-
+    
     @FXML
-    public void keyPressed(KeyEvent evt) {
-        Direction nextDir = switch (evt.getCode()) {
-            case UP, W -> Direction.UP;
-            case DOWN, S -> Direction.DOWN;
-            case LEFT, A -> Direction.LEFT;
-            case RIGHT, D -> Direction.RIGHT;
-            default -> null;
-        };
-        
-        if (nextDir != null) {
-            engine.changeDirection(nextDir);
-        }
+    public void mapKeys(Scene scene) {
+        scene.setOnKeyPressed(evt -> {
+            switch (evt.getCode()) {
+                case UP, W -> engine.changeDirection(Direction.UP);
+                case DOWN, S -> engine.changeDirection(Direction.DOWN);
+                case LEFT, A -> engine.changeDirection(Direction.LEFT);
+                case RIGHT, D -> engine.changeDirection(Direction.RIGHT);
+                case P, ESCAPE -> {
+                    if (engine.isRunning()) {
+                        engine.pause();
+                    } else {
+                        engine.resume();
+                    }
+                }
+                default -> {}
+            }
+        });
     }
 }
 

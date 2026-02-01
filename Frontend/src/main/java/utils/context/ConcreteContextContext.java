@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 import utils.Log;
 import game.view.ViewTypes;
 
-public class ConcreteContextMediator extends Application implements AppContext {
+public class ConcreteContextContext extends Application implements AppContext {
     // models
     private final Map mapModel;
     private final GameEngine engine;
@@ -28,7 +28,7 @@ public class ConcreteContextMediator extends Application implements AppContext {
     // primaryStage for the application to live in
     private Stage primaryStage;
 
-    public ConcreteContextMediator() {
+    public ConcreteContextContext() {
         this.mapModel = new Map();
         this.gameState = new GameState();
         this.snake = new Snake();

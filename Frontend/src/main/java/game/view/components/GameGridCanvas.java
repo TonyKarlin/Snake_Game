@@ -1,8 +1,6 @@
-package game.view;
+package game.view.components;
 
 import game.models.map.TileType;
-import game.models.settings.TileSize;
-import game.view.components.GameGrid;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 

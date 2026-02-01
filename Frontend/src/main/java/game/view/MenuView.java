@@ -1,7 +1,6 @@
 package game.view;
 
 import game.controllers.MainMenuController;
-import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -22,7 +21,7 @@ public class MenuView {
         FXMLLoader loader = FetchFxml.fetchAndValidateLoader(this, MENU_VIEW_NAME);
         Parent root = loader.load();
         MainMenuController controller = loader.getController();
-        controller.setMediator(context);
+        controller.setContext(context);
         controller.initButtons();
 
         Scene scene = new Scene(root, 600, 600);

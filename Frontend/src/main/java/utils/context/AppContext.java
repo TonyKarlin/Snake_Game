@@ -1,4 +1,4 @@
 package utils.context;
 
-public interface AppContext extends ViewMediator, ModelContext {
+public interface AppContext extends ViewContext, ModelContext {
 }

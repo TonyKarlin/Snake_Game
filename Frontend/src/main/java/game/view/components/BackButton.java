@@ -1,13 +1,13 @@
 package game.view.components;
 
-import utils.context.ViewMediator;
+import utils.context.ViewContext;
 import game.view.ViewTypes;
 
 public class BackButton extends CustomButton{
-    private final ViewMediator viewMediator;
+    private final ViewContext viewContext;
     
-    public BackButton(ViewMediator viewMediator) {
-        this.viewMediator = viewMediator;
+    public BackButton(ViewContext viewContext) {
+        this.viewContext = viewContext;
         initializeButton("Back");
         this.setButtonPadding(10);
         this.setButtonLabelColour("RED");
@@ -16,6 +16,6 @@ public class BackButton extends CustomButton{
     @Override
     public void onClick() {
         System.out.println(getClass().getSimpleName() + " clicked!");
-        viewMediator.updateView(ViewTypes.MENU);
+        viewContext.updateView(ViewTypes.MENU);
     }
 }

@@ -40,10 +40,6 @@ public class GameState {
         Clock.getInstance().reset();
     }
 
-    public void setFoodEaten(int foodEaten) {
-        this.foodEaten = foodEaten;
-    }
-
     public int getFoodEaten() {
         return foodEaten;
     }

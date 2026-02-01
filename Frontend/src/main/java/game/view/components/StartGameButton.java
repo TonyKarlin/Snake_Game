@@ -1,13 +1,13 @@
 package game.view.components;
 
-import utils.context.ViewMediator;
+import utils.context.ViewContext;
 import game.view.ViewTypes;
 
 public class StartGameButton extends CustomButton{
-    private final ViewMediator viewMediator;
+    private final ViewContext viewContext;
 
-    public StartGameButton(ViewMediator viewMediator) {
-        this.viewMediator = viewMediator;
+    public StartGameButton(ViewContext viewContext) {
+        this.viewContext = viewContext;
         initializeButton("Start Game");
         this.setButtonPadding(10);
         this.setButtonLabelColour("GREEN");
@@ -16,8 +16,8 @@ public class StartGameButton extends CustomButton{
     @Override
     public void onClick() {
         System.out.println(getClass().getSimpleName() + " clicked!");
-        System.out.println("Mediator state: " + viewMediator);
-        viewMediator.updateView(ViewTypes.GAME);
+        System.out.println("Mediator state: " + viewContext);
+        viewContext.updateView(ViewTypes.GAME);
     }
     
 }

@@ -1,12 +1,12 @@
 package game.view;
 
 import game.controllers.GameController;
-import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import utils.FetchFxml;
+import utils.Log;
 import utils.context.AppContext;
 
 public class GameView {
@@ -26,7 +26,7 @@ public class GameView {
         controller.setContext(context);
         controller.load();
 
-        scene.setOnKeyPressed(controller::keyPressed);
+        controller.mapKeys(scene);
 
         stage.setScene(scene);
         stage.setTitle("Snake - Game");

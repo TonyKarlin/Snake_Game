@@ -1,11 +1,11 @@
 package game.controllers;
 
-import utils.context.ViewMediator;
+import utils.context.ViewContext;
 
 public class HiscoresController {
-    private ViewMediator viewMediator;
+    private ViewContext viewContext;
 
-    public void setMediator(ViewMediator viewMediator) {
-        this.viewMediator = viewMediator;
+    public void setContext(ViewContext viewContext) {
+        this.viewContext = viewContext;
     }
 }

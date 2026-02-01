@@ -9,11 +9,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.VBox;
-import utils.context.ViewMediator;
+import utils.context.ViewContext;
 
 public class MainMenuController {
     private final List<CustomButton> menuButtons;
-    private ViewMediator viewMediator;
+    private ViewContext viewContext;
 
     public MainMenuController() {
         this.menuButtons = new ArrayList<>();
@@ -38,9 +38,9 @@ public class MainMenuController {
     }
 
     public void initButtons() {
-        menuButtons.add(new CreateGameButton(viewMediator));
-        menuButtons.add(new HiscoresButton(viewMediator));
-        menuButtons.add(new ExitButton(viewMediator));
+        menuButtons.add(new CreateGameButton(viewContext));
+        menuButtons.add(new HiscoresButton(viewContext));
+        menuButtons.add(new ExitButton(viewContext));
         addButtonsToLayout();
     }
 
@@ -50,8 +50,8 @@ public class MainMenuController {
         });
     }
 
-    public void setMediator(ViewMediator viewMediator) {
-        this.viewMediator = viewMediator;
+    public void setContext(ViewContext viewContext) {
+        this.viewContext = viewContext;
     }
 
 }
