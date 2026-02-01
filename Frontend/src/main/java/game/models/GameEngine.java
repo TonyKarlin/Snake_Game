@@ -47,8 +47,6 @@ public class GameEngine {
             map.generateFood(map.getSize());
         }
 
-        lastTick = time;
-
         Position nextPos = moveSnake();
 
         if (checkCollision(nextPos)) {
@@ -57,6 +55,7 @@ public class GameEngine {
         }
         updateSnake(nextPos);
 
+        lastTick = time;
         return true;
     }
     

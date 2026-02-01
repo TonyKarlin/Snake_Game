@@ -49,6 +49,28 @@ public class GameController {
         gameRoot.prefHeightProperty().bind(gameCanvas.heightProperty());
     }
 
+    // main game loop
+    public void startGameLoop() {
+        engine.start();
+        AnimationTimer gameLoop = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                if (engine.isRunning()) {
+                    if (state.isGameOver()) {
+                        stop();
+                        context.updateView(ViewTypes.END);
+                        return;
+                    }
+                    boolean hasTickUpdated = engine.loop(now);
+                    if (hasTickUpdated) {
+                        redraw();
+                    }
+                }
+            }
+        };
+        gameLoop.start();
+    }
+
     private void redraw() {
         gc.clearRect(0, 0, gameCanvas.getWidth(), gameCanvas.getHeight());
         grid.render(gc, mapModel.getLogicalMap());
@@ -86,27 +108,6 @@ public class GameController {
         int cells = mapModel.getLogicalMap().length;
         int tileSize = mapModel.getTileSize();
         return cells * tileSize;
-    }
-
-    public void startGameLoop() {
-        engine.start();
-        AnimationTimer gameLoop = new AnimationTimer() {
-            @Override
-            public void handle(long now) {
-                if (engine.isRunning()) {
-                    if (state.isGameOver()) {
-                        stop();
-                        context.updateView(ViewTypes.END);
-                        return;
-                    }
-                    boolean hasTickUpdated = engine.loop(now);
-                    if (hasTickUpdated) {
-                        redraw();
-                    }
-                }
-            }
-        };
-        gameLoop.start();
     }
 
     private void drawSnake() {
