@@ -129,6 +129,7 @@ public class GameEngine {
 
     public void changeDirection(Direction newDirection) {
         if (!isRunning) return;
+        if (newDirection == null) return;
         if (newDirection == currentDirection.getOpposite()) return;
         
         queuedDirection = newDirection;
