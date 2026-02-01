@@ -25,10 +25,6 @@ public class Node {
     public Position getPosition() {
         return position;
     }
-    
-    public void setPosition(int x, int y) {
-        this.position.setPosition(x, y);
-    }
 
     public Flyweight getNode() {
         return node;

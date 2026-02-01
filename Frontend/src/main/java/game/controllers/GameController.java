@@ -14,7 +14,6 @@ import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
@@ -113,8 +112,8 @@ public class GameController {
         int tileSize = mapModel.getTileSize();
 
         while (current != null) {
-            int x = current.getPosition().getX();
-            int y = current.getPosition().getY();
+            int x = current.getPosition().x();
+            int y = current.getPosition().y();
             double multiplier = validateMultiplier(current);
 
             current.getNode().draw(gc, x, y, tileSize, multiplier);

@@ -1,7 +1,6 @@
 package game.models.map;
 
 import game.models.Position;
-import game.models.settings.TileSize;
 
 import java.util.Random;
 
@@ -41,9 +40,9 @@ public class Map {
     }
     
     public boolean isFood(Position pos) {
-        if (isOOB(pos.getX(), pos.getY())) throw new IllegalArgumentException("Coordinates out of bounds");
+        if (isOOB(pos.x(), pos.y())) throw new IllegalArgumentException("Coordinates out of bounds");
 
-        return getLogicalMap()[pos.getX()][pos.getY()] == TileType.FOOD;
+        return getLogicalMap()[pos.x()][pos.y()] == TileType.FOOD;
     }
     
     public boolean isFoodGenerated() {
@@ -68,9 +67,9 @@ public class Map {
     }
 
     public boolean isObstacle(Position pos) {
-        if (isOOB(pos.getX(), pos.getY())) throw new IllegalArgumentException("Coordinates out of bounds");
+        if (isOOB(pos.x(), pos.y())) throw new IllegalArgumentException("Coordinates out of bounds");
 
-        return getLogicalMap()[pos.getX()][pos.getY()] == TileType.OBSTACLE;
+        return getLogicalMap()[pos.x()][pos.y()] == TileType.OBSTACLE;
     }
 
     private boolean isEdge(int i, int j, int size) {

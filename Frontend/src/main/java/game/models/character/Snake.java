@@ -4,7 +4,9 @@ import game.models.Position;
 import game.view.flyweight.SnakeBody;
 import game.view.flyweight.SnakeBodyFactory;
 import game.view.flyweight.SnakeBodyType;
-import utils.Log;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class Snake {
     // Snake implemented as a doubly linked list
@@ -13,8 +15,11 @@ public class Snake {
     private Node head;
     private Node tail;
     private int size;
+
+    private final Set<Position> occupiedPositions;
     
     public Snake() {
+        this.occupiedPositions = new HashSet<>();
         this.head = null;
         this.tail = null;
     }
@@ -26,27 +31,10 @@ public class Snake {
             SnakeBodyType.BODY,
             SnakeBodyType.TAIL
         };
-
-        int y = centerPosition.getY();
-        Node prev = null;
-
-        for (int i = 0; i < startLength; i++) {
-            Node current = new Node(
-                SnakeBodyFactory.getBodyExtension(types[i]),
-                new Position(centerPosition.getX(), y + i)
-            );
-
-            if (i == 0) {
-                this.head = current;
-            } else {
-                prev.setNext(current);
-                current.setPrev(prev);
-            }
-
-            prev = current;
-        }
-
-        this.tail = prev;
+        
+        clearOccupiedPositions();
+        buildSnake(startLength, centerPosition, types);
+        
         this.size = startLength;
     }
     
@@ -56,6 +44,29 @@ public class Snake {
     
     public void shrink() {
         size--;
+    }
+    
+    private void buildSnake(int startLength, Position centerPosition, SnakeBodyType[] types) {
+        int y = centerPosition.y();
+        Node prev = null;
+        
+        for (int i = 0; i < startLength; i++) {
+            Node current = new Node(
+                SnakeBodyFactory.getBodyExtension(types[i]),
+                new Position(centerPosition.x(), y + i)
+            );
+
+            if (i == 0) {
+                this.head = current;
+            } else {
+                prev.setNext(current);
+                current.setPrev(prev);
+            }
+
+            occupiedPositions.add(current.getPosition());
+            prev = current;
+        }
+        this.tail = prev;
     }
     
     public void addToTheHead(Position newPos) {
@@ -83,36 +94,26 @@ public class Snake {
     }
     
     public boolean isCollidingWithSelf(Position pos) {
-        Node current = head;
-        while (current != null) {
-            if (current.getPosition().equals(pos)) return true;
-            current = current.getNext();
-        }
-        return false;
+        return occupiedPositions.contains(pos);
+    }
+
+    public Set<Position> getOccupiedPositions() {
+        return occupiedPositions;
     }
     
+    public void clearOccupiedPositions() {
+        occupiedPositions.clear();
+    }
 
     public Node getHead() {
         return head;
-    }
-
-    public void setHead(Node head) {
-        this.head = head;
     }
     
     public Node getTail() {
         return tail;
     }
 
-    public void setTail(Node tail) {
-        this.tail = tail;
-    }
-
     public int getSize() {
         return size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
     }
 }

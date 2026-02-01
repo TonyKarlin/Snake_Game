@@ -6,6 +6,9 @@ import game.models.character.Snake;
 import game.models.map.Map;
 import utils.Clock;
 
+import java.util.HashSet;
+import java.util.Set;
+
 
 public class GameEngine {
     private final GameState state;
@@ -50,6 +53,7 @@ public class GameEngine {
         lastTick = time;
 
         Position nextPos = moveSnake();
+
         if (checkCollision(nextPos)) {
             state.setGameOver(true);
             return false;
@@ -93,20 +97,31 @@ public class GameEngine {
         snake.addToTheHead(nextPos);
         if (map.isFood(nextPos)) {
             onFoodEaten(nextPos);
+            snake.grow();
         } else {
             snake.removeTail();
+            snake.getOccupiedPositions().remove(snake.getTail().getPosition());
         }
+        snake.getOccupiedPositions().add(nextPos);
     }
 
-    private boolean checkCollision(Position pos) {
-        return map.isObstacle(pos) || snake.isCollidingWithSelf(pos);
+    private boolean checkCollision(Position nextPos) {
+        if (map.isObstacle(nextPos)) return true;
+        
+        boolean isEating = map.isFood(nextPos);
+        
+        if (!isEating && nextPos.equals(snake.getTail().getPosition())) {
+            return false;
+        }
+        
+        return snake.isCollidingWithSelf(nextPos);
     }
     
     private void onFoodEaten(Position pos) {
         map.setFoodGenerated(false);
         state.increaseScore(10);
         state.incrementFoodEaten();
-        map.resetTile(pos.getX(), pos.getY());
+        map.resetTile(pos.x(), pos.y());
     }
 
     public void changeDirection(Direction newDirection) {

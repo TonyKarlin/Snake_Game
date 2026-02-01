@@ -17,7 +17,7 @@ public enum Direction {
     }
 
     public Position move(Position pos) {
-        return new Position(pos.getX() + dx, pos.getY() + dy);
+        return new Position(pos.x() + dx, pos.y() + dy);
     }
     
     public Direction getOpposite() {
