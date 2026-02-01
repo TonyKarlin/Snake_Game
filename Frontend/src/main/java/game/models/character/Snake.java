@@ -75,6 +75,7 @@ public class Snake {
         if (head == null) throw new IllegalStateException("Cannot add to head of an uninitialized snake");
         
         Node newNode = new Node(body, newPos);
+        occupiedPositions.add(newPos);
 
         head.setType(SnakeBodyType.BODY);
         head.setPrev(newNode);
@@ -87,9 +88,12 @@ public class Snake {
         if (tail == null) throw new IllegalStateException("Cannot remove tail of an uninitialized snake");
         
         Node temp = getTail();
+        
         tail = temp.getPrev();
         tail.setType(SnakeBodyType.TAIL);
+        
         tail.setNext(null);
+        occupiedPositions.remove(temp.getPosition());
         temp.setPrev(null);
     }
     

@@ -119,14 +119,17 @@ public class GameSettingsController {
 
 
     public void setSize(int selectedSize) {
+        System.out.println("Setting map size to: " + selectedSize);
         mapModel.setSize(selectedSize);
     }
 
     public void setDifficulty(long tickSpeed) {
+        System.out.println("Setting difficulty tick rate to: " + tickSpeed);
         engine.setTickRate(tickSpeed);
     }
 
     public void setTileSize(int size) {
+        System.out.println("Setting tile size to: " + size);
         mapModel.setTileSize(size);
     }
 

@@ -103,9 +103,7 @@ public class GameEngine {
             snake.grow();
         } else {
             snake.removeTail();
-            snake.getOccupiedPositions().remove(snake.getTail().getPosition());
         }
-        snake.getOccupiedPositions().add(nextPos);
     }
 
     private boolean checkCollision(Position nextPos) {
