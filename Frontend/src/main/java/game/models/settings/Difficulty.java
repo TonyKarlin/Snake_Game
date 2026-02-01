@@ -3,9 +3,9 @@ package game.models.settings;
 
 
 public enum Difficulty {
-    EASY(400),
-    MEDIUM(250),
-    HARD(150);
+    EASY(300),
+    MEDIUM(200),
+    HARD(100);
 
     private final int tickSpeedMs;
 
