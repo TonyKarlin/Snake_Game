@@ -1,4 +1,4 @@
-package com.example.snake.entities;
+package backend.api.entities;
 
 import jakarta.persistence.*;
 

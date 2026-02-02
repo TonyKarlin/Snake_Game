@@ -1,4 +1,4 @@
-package com.example.snake.dtos;
+package backend.api.dtos;
 
 public record GameData(
         String playerName,
