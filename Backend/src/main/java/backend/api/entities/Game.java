@@ -13,13 +13,13 @@ public class Game {
     @Column
     private String name;
 
-    @Column
+    @Column(nullable = false)
     private int foodEaten;
 
-    @Column
+    @Column(nullable = false)
     private float duration; // in seconds
 
-    @Column
+    @Column(nullable = false)
     private int score;
 
     public Game() {

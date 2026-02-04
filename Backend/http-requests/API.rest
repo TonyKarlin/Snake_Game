@@ -1,0 +1,27 @@
+### GET -- hiscores
+GET localhost:8080/api/hiscores
+Content-Type: application/json
+
+### POST -- game to hiscores
+POST localhost:8080/api/hiscores
+Content-Type: application/json
+
+{
+  "playerName": "test",
+  "foodEaten": 5,
+  "duration": 33.3,
+  "score": 50
+}
+
+### GET -- hiscore by id
+GET localhost:8080/api/hiscores/1
+Content-Type: application/json
+
+### GET -- hiscore by game / player name
+@gameName = test
+GET localhost:8080/api/hiscores/name/{{gameName}}
+Content-Type: application/json
+
+### DELETE -- hiscore by id
+DELETE localhost:8080/api/hiscores/2
+Content-Type: application/json
