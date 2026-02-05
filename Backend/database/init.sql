@@ -8,7 +8,8 @@ CREATE TABLE IF NOT EXISTS games
     name       VARCHAR(20) NOT NULL,
     food_eaten INT         NOT NULL DEFAULT 0,
     duration   DECIMAL     NOT NULL DEFAULT 0,
-    score      BIGINT      NOT NULL DEFAULT 0
+    score      BIGINT      NOT NULL DEFAULT 0,
+    timestamp  TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 -- index to optimize retrieval of top scores

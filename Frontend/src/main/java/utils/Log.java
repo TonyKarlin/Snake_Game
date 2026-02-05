@@ -8,4 +8,8 @@ public class Log {
     public static void log(String message) {
         LOGGER.info(message);
     }
+
+    public static void error(String message) {
+        LOGGER.severe(message);
+    }
 }

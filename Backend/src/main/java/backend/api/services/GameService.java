@@ -18,7 +18,11 @@ public class GameService {
     }
 
     public List<Game> getAllGames() {
-        return repository.findAll();
+        List<Game> games = repository.findAll();
+
+        return games.stream()
+                .sorted((g1, g2) -> Long.compare(g2.getScore(), g1.getScore()))
+                .toList();
     }
 
     public Optional<Game> findGameById(Long id) {
