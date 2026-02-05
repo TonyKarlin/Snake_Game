@@ -4,16 +4,19 @@ import tools.jackson.core.type.TypeReference;
 import tools.jackson.databind.ObjectMapper;
 import utils.Log;
 import utils.dto.GameDTO;
+import utils.dto.response.HiscoresResponse;
 
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.sql.SQLOutput;
 import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.*;
 
 public class ApiClient implements IApiClient {
+    private static final String BASE_URL = "http://localhost:8080";
     private final HttpClient http;
     private final ObjectMapper mapper;
     private final ExecutorService executorService;
@@ -30,7 +33,6 @@ public class ApiClient implements IApiClient {
 
     public CompletableFuture<List<GameDTO>> sendGetRequest() {
         HttpRequest request = buildGetRequest();
-
         return http.sendAsync(request, HttpResponse.BodyHandlers.ofString())
             .thenApply(res -> {
                 int statusCode = res.statusCode();
@@ -40,6 +42,7 @@ public class ApiClient implements IApiClient {
                 }
 
                 try {
+                    System.out.println("GET response body: " + res.body());
                     return deserializeFromJson(res.body());
                 } catch (Exception e) {
                     Log.error("Failed to parse GET response: " + e.getMessage());
@@ -97,10 +100,15 @@ public class ApiClient implements IApiClient {
 
     private List<GameDTO> deserializeFromJson(String json) {
         try {
-            return mapper.readValue(json, new TypeReference<>() {
-            });
+            HiscoresResponse response = mapper.readValue(json, HiscoresResponse.class);
+
+            if (response == null || response.getEmbedded() == null || response.getEmbedded().getGameList() == null) {
+                return List.of();
+            }
+
+            return response.getEmbedded().getGameList();
         } catch (Exception e) {
-            throw new RuntimeException("JSON deserialization failed", e);
+            throw new RuntimeException("Failed to parse JSON response", e);
         }
     }
 
@@ -109,7 +117,7 @@ public class ApiClient implements IApiClient {
     }
 
     private String getHiscoreUrl() {
-        return ApiPaths.ROOT.getPath() + ApiPaths.HISCORES.getPath();
+        return BASE_URL + ApiPaths.ROOT.getPath() + ApiPaths.HISCORES.getPath();
     }
 
     @Override
